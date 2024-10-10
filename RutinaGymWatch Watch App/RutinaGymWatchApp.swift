@@ -1,14 +1,14 @@
 //
-//  RutinaGymApp.swift
-//  RutinaGym
+//  RutinaGymWatchApp.swift
+//  RutinaGymWatch Watch App
 //
-//  Created by Sergio Comerón Sánchez-Pani on 9/10/24.
+//  Created by Sergio Comerón Sánchez-Pani on 10/10/24.
 //
 
 import SwiftUI
 
 @main
-struct RutinaGymApp: App {
+struct RutinaGymWatch_Watch_AppApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()

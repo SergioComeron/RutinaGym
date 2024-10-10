@@ -1,0 +1,982 @@
+[
+    {
+        "id": 1,
+        "nombre": "Press de banca plano mancuernas",
+        "grupoMuscular": "Pecho",
+        "variable": "",
+        "descripcion": "Press de banca con mancuernas en posición horizontal."
+    },
+    {
+        "id": 2,
+        "nombre": "Press de banca inclinado mancuernas",
+        "grupoMuscular": "Pecho",
+        "variable": "",
+        "descripcion": "Press de banca con mancuernas en posición inclinada."
+    },
+    {
+        "id": 3,
+        "nombre": "Flexiones de pecho estándar",
+        "grupoMuscular": "Pecho",
+        "variable": "",
+        "descripcion": "Flexiones de pecho en posición estándar con las manos a la altura de los hombros."
+    },
+    {
+        "id": 4,
+        "nombre": "Flexiones de pecho diamante",
+        "grupoMuscular": "Pecho",
+        "variable": "",
+        "descripcion": "Flexiones de pecho con las manos juntas formando un diamante, enfocando más en los tríceps."
+    },
+    {
+        "id": 5,
+        "nombre": "Press de banca plano",
+        "grupoMuscular": "Pecho",
+        "variable": "",
+        "descripcion": "Press de banca con barra en posición horizontal."
+    },
+    {
+        "id": 6,
+        "nombre": "Aperturas con polea alta de pecho dos manos",
+        "grupoMuscular": "Pecho",
+        "variable": "",
+        "descripcion": "Ejercicio de aperturas para trabajar los músculos pectorales utilizando una polea con ambas manos."
+    },
+    {
+        "id": 7,
+        "nombre": "Aperturas con polea baja de pecho dos manos",
+        "grupoMuscular": "Pecho",
+        "variable": "",
+        "descripcion": "Ejercicio de aperturas para trabajar los músculos pectorales utilizando una polea con ambas manos."
+    },
+    {
+        "id": 8,
+        "nombre": "Aperturas con polea media de pecho dos manos",
+        "grupoMuscular": "Pecho",
+        "variable": "",
+        "descripcion": "Ejercicio de aperturas para trabajar los músculos pectorales utilizando una polea con ambas manos."
+    },
+    {
+        "id": 9,
+        "nombre": "Aperturas con polea alta de pecho una mano",
+        "grupoMuscular": "Pecho",
+        "variable": "",
+        "descripcion": "Ejercicio de aperturas para trabajar los músculos pectorales utilizando una polea con una manos"
+    },
+    {
+        "id": 10,
+        "nombre": "Aperturas con polea baja de pecho una mano",
+        "grupoMuscular": "Pecho",
+        "variable": "",
+        "descripcion": "Ejercicio de aperturas para trabajar los músculos pectorales utilizando una polea con una mano."
+    },
+    {
+        "id": 11,
+        "nombre": "Aperturas con polea media de pecho una mano",
+        "grupoMuscular": "Pecho",
+        "variable": "",
+        "descripcion": "Ejercicio de aperturas para trabajar los músculos pectorales utilizando una polea con una mano."
+    },
+    {
+        "id": 12,
+        "nombre": "Fondos de pecho en máquina",
+        "grupoMuscular": "Pecho",
+        "variable": "",
+        "descripcion": "Ejercicio de fondos para trabajar los músculos pectorales utilizando una máquina específica."
+    },
+    {
+        "id": 13,
+        "nombre": "Fondos de pecho en paralelas",
+        "grupoMuscular": "Pecho",
+        "variable": "",
+        "descripcion": "Ejercicio de fondos para trabajar los músculos pectorales utilizando barras paralelas."
+    },
+    {
+        "id": 14,
+        "nombre": "Press de banca inclinado",
+        "grupoMuscular": "Pecho",
+        "variable": "",
+        "descripcion": "Press de banca con barra en posición inclinada para enfocar más en la porción superior del pecho."
+    },
+    {
+        "id": 15,
+        "nombre": "Press de banca plano multipower",
+        "grupoMuscular": "Pecho",
+        "variable": "",
+        "descripcion": "Press de banca en multipower en posición horizontal."
+    },
+    {
+        "id": 16,
+        "nombre": "Press de banca inclinado multipower",
+        "grupoMuscular": "Pecho",
+        "variable": "",
+        "descripcion": "Press de banca en multipower en posición inclinada para enfocar más en la porción superior del pecho."
+    },
+    {
+        "id": 17,
+        "nombre": "Dominadas pronas",
+        "grupoMuscular": "Espalda",
+        "variable": "",
+        "descripcion": "Dominadas con agarre pronado (palmas mirando hacia adelante), enfocando en los músculos de la espalda."
+    },
+    {
+        "id": 18,
+        "nombre": "Dominadas supinas",
+        "grupoMuscular": "Espalda",
+        "variable": "",
+        "descripcion": "Dominadas con agarre supino (palmas mirando hacia el cuerpo), enfocando más en los bíceps."
+    },
+    {
+        "id": 19,
+        "nombre": "Remo con barra",
+        "grupoMuscular": "Espalda",
+        "variable": "",
+        "descripcion": "Ejercicio de remo con barra para trabajar los músculos de la espalda baja."
+    },
+    {
+        "id": 20,
+        "nombre": "Remo en punta",
+        "grupoMuscular": "Espalda",
+        "variable": "",
+        "descripcion": "Ejercicio de remo con barra para trabajar los músculos de la espalda."
+    },
+    {
+        "id": 21,
+        "nombre": "Pull-ups neutras",
+        "grupoMuscular": "Espalda",
+        "variable": "",
+        "descripcion": "Pull-ups con agarre neutral, enfocando en la parte baja y media de la espalda."
+    },
+    {
+        "id": 22,
+        "nombre": "Curl de bíceps con barra recta",
+        "grupoMuscular": "Bíceps",
+        "variable": "",
+        "descripcion": "Curl de bíceps utilizando una barra recta."
+    },
+    {
+        "id": 23,
+        "nombre": "Curl de bíceps con mancuernas",
+        "grupoMuscular": "Bíceps",
+        "variable": "",
+        "descripcion": "Curl de bíceps utilizando mancuernas."
+    },
+    {
+        "id": 24,
+        "nombre": "Tríceps en polea alta",
+        "grupoMuscular": "Tríceps",
+        "variable": "",
+        "descripcion": "Ejercicio de extensión de tríceps utilizando una polea alta."
+    },
+    {
+        "id": 25,
+        "nombre": "Press francés",
+        "grupoMuscular": "Tríceps",
+        "variable": "",
+        "descripcion": "Ejercicio de aislamiento para los tríceps, realizado con una barra EZ o mancuerna."
+    },
+    {
+        "id": 26,
+        "nombre": "Elevaciones de gemelos sentado",
+        "grupoMuscular": "Gemelo",
+        "variable": "",
+        "descripcion": "Ejercicio para trabajar los músculos de los gemelos sentado en una máquina específica."
+    },
+    {
+        "id": 27,
+        "nombre": "Gemelos multipower",
+        "grupoMuscular": "Gemelo",
+        "variable": "",
+        "descripcion": "Ejercicio para trabajar los músculos de los gemelos de pie en la multipower."
+    },
+    {
+        "id": 28,
+        "nombre": "Elevaciones de gemelos de pie",
+        "grupoMuscular": "Gemelo",
+        "variable": "",
+        "descripcion": "Ejercicio para trabajar los músculos de los gemelos de pie en una máquina específica."
+    },
+    {
+        "id": 29,
+        "nombre": "Prensa de piernas",
+        "grupoMuscular": "Cuádriceps",
+        "variable": "",
+        "descripcion": "Ejercicio de prensa para trabajar los músculos de los cuádriceps."
+    },
+    {
+        "id": 30,
+        "nombre": "Sentadillas",
+        "grupoMuscular": "Cuádriceps",
+        "variable": "",
+        "descripcion": "Ejercicio básico para fortalecer los músculos de las piernas."
+    },
+    {
+        "id": 31,
+        "nombre": "Peso muerto",
+        "grupoMuscular": "Femoral",
+        "variable": "",
+        "descripcion": "Ejercicio para trabajar los músculos de la parte posterior de los muslos y los glúteos."
+    },
+    {
+        "id": 32,
+        "nombre": "Flexiones de abductor",
+        "grupoMuscular": "Abductor",
+        "variable": "",
+        "descripcion": "Ejercicio para fortalecer los músculos abductores de las piernas."
+    },
+    {
+        "id": 33,
+        "nombre": "Flexiones de aductor",
+        "grupoMuscular": "Aductor",
+        "variable": "",
+        "descripcion": "Ejercicio para fortalecer los músculos aductores de las piernas."
+    },
+    {
+        "id": 34,
+        "nombre": "Press militar",
+        "grupoMuscular": "Hombros",
+        "variable": "",
+        "descripcion": "Ejercicio para desarrollar fuerza y masa muscular en los hombros."
+    },
+    {
+        "id": 35,
+        "nombre": "Elevaciones laterales máquina",
+        "grupoMuscular": "Hombros",
+        "variable": "",
+        "descripcion": "Ejercicio para trabajar los deltoides laterales."
+    },
+    {
+        "id": 36,
+        "nombre": "Elevaciones laterales mancuerna sentado",
+        "grupoMuscular": "Hombros",
+        "variable": "",
+        "descripcion": "Ejercicio para trabajar los deltoides laterales."
+    },
+    {
+        "id": 37,
+        "nombre": "Crunch abdominal",
+        "grupoMuscular": "Abdomen",
+        "variable": "",
+        "descripcion": "Ejercicio para fortalecer los músculos abdominales."
+    },
+    {
+        "id": 38,
+        "nombre": "Plancha",
+        "grupoMuscular": "Abdomen",
+        "variable": "",
+        "descripcion": "Ejercicio estático para fortalecer los músculos abdominales y del core."
+    },
+    {
+        "id": 39,
+        "nombre": "Plancha araña",
+        "grupoMuscular": "Abdomen",
+        "variable": "",
+        "descripcion": "Variación avanzada de la plancha que involucra la elevación alternativa de las piernas hacia los lados del cuerpo, desafiando aún más los músculos abdominales y del core."
+    },
+    {
+        "id": 40,
+        "nombre": "Elevaciones de piernas colgado",
+        "grupoMuscular": "Abdomen",
+        "variable": "",
+        "descripcion": "Ejercicio para fortalecer los músculos abdominales inferiores."
+    },
+    {
+        "id": 41,
+        "nombre": "Elevaciones de piernas tumbado",
+        "grupoMuscular": "Abdomen",
+        "variable": "",
+        "descripcion": "Ejercicio para fortalecer los músculos abdominales inferiores. Tumbado en un banco elevar las dos piernas hacia arriba"
+    },
+    {
+        "id": 42,
+        "nombre": "Rotaciones de torso",
+        "grupoMuscular": "Abdomen",
+        "variable": "",
+        "descripcion": "Ejercicio para trabajar los músculos oblicuos del abdomen."
+    },
+    {
+        "id": 43,
+        "nombre": "Flexiones laterales con mancuerna",
+        "grupoMuscular": "Abdomen",
+        "variable": "",
+        "descripcion": "Ejercicio para fortalecer los músculos oblicuos del abdomen utilizando una mancuerna."
+    },
+    {
+        "id": 44,
+        "nombre": "Oblicuos laterales con disco",
+        "grupoMuscular": "Abdomen",
+        "variable": "",
+        "descripcion": "Ejercicio para fortalecer los músculos oblicuos del abdomen utilizando un disco. Con una mano inclinarse hacia el lateral del disco"
+    },
+    {
+        "id": 45,
+        "nombre": "Press Arnold",
+        "grupoMuscular": "Hombros",
+        "variable": "",
+        "descripcion": "Variación del press de hombros para un rango de movimiento más amplio."
+    },
+    {
+        "id": 46,
+        "nombre": "Curl martillo",
+        "grupoMuscular": "Bíceps",
+        "variable": "",
+        "descripcion": "Variación del curl de bíceps para fortalecer los músculos del antebrazo."
+    },
+    {
+        "id": 47,
+        "nombre": "Flexiones con una mano",
+        "grupoMuscular": "Pecho",
+        "variable": "",
+        "descripcion": "Flexiones de pecho realizadas con una sola mano para un desafío adicional."
+    },
+    {
+        "id": 48,
+        "nombre": "Press pecho superior máquina",
+        "grupoMuscular": "Pecho",
+        "variable": "",
+        "descripcion": "En máquina press inclinado"
+    },
+    {
+        "id": 49,
+        "nombre": "Press pecho máquina",
+        "grupoMuscular": "Pecho",
+        "variable": "",
+        "descripcion": "En máquina press"
+    },
+    {
+        "id": 50,
+        "nombre": "Contractora",
+        "grupoMuscular": "Pecho",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 51,
+        "nombre": "Remo con mancuerna",
+        "grupoMuscular": "Espalda",
+        "variable": "",
+        "descripcion": "Ejercicio de remo utilizando una mancuerna para trabajar los músculos de la espalda baja y media."
+    },
+    {
+        "id": 52,
+        "nombre": "Tríceps en polea baja",
+        "grupoMuscular": "Tríceps",
+        "variable": "",
+        "descripcion": "Ejercicio de extensión de tríceps utilizando una polea baja."
+    },
+    {
+        "id": 53,
+        "nombre": "Curl de bíceps con barra Z",
+        "grupoMuscular": "Bíceps",
+        "variable": "",
+        "descripcion": "Variación del curl de bíceps utilizando una barra Z."
+    },
+    {
+        "id": 54,
+        "nombre": "Fondos en paralelas",
+        "grupoMuscular": "Tríceps",
+        "variable": "",
+        "descripcion": "Ejercicio efectivo para trabajar los tríceps y el pecho."
+    },
+    {
+        "id": 55,
+        "nombre": "Elevaciones frontales con barra",
+        "grupoMuscular": "Hombros",
+        "variable": "",
+        "descripcion": "Elevaciones frontales utilizando una barra para trabajar los deltoides frontales."
+    },
+    {
+        "id": 56,
+        "nombre": "Encogimientos",
+        "grupoMuscular": "Hombros",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 57,
+        "nombre": "Elevaciones frontales con disco",
+        "grupoMuscular": "Hombros",
+        "variable": "",
+        "descripcion": "Elevaciones frontales utilizando una barra para trabajar los deltoides frontales."
+    },
+    {
+        "id": 58,
+        "nombre": "Elevaciones frontales y laterales cruz mancuerna",
+        "grupoMuscular": "Hombros",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 59,
+        "nombre": "Peso muerto sumo",
+        "grupoMuscular": "Femoral",
+        "variable": "",
+        "descripcion": "Variación del peso muerto para enfocar más en los músculos de los glúteos y los aductores."
+    },
+    {
+        "id": 60,
+        "nombre": "Sentadillas búlgaras",
+        "grupoMuscular": "Cuádriceps",
+        "variable": "",
+        "descripcion": "Variación de las sentadillas para fortalecer las piernas de manera unilateral."
+    },
+    {
+        "id": 61,
+        "nombre": "Extensión de cuádriceps máquina dos piernas",
+        "grupoMuscular": "Cuádriceps",
+        "variable": "",
+        "descripcion": "Extensión de cuádriceps con máquina con dos piernas"
+    },
+    {
+        "id": 62,
+        "nombre": "Press de hombros con mancuernas",
+        "grupoMuscular": "Hombros",
+        "variable": "",
+        "descripcion": "Ejercicio para trabajar los deltoides con mancuernas."
+    },
+    {
+        "id": 63,
+        "nombre": "Peso muerto rumano",
+        "grupoMuscular": "Femoral",
+        "variable": "",
+        "descripcion": "Uno de los mejores ejercicios para fortalecer la espalda baja y las piernas."
+    },
+    {
+        "id": 64,
+        "nombre": "Curl de bíceps concentrado",
+        "grupoMuscular": "Bíceps",
+        "variable": "",
+        "descripcion": "Variación del curl de bíceps para aislar y concentrar el trabajo en el músculo."
+    },
+    {
+        "id": 65,
+        "nombre": "Elevaciones laterales con mancuernas",
+        "grupoMuscular": "Hombros",
+        "variable": "",
+        "descripcion": "Ejercicio para trabajar los deltoides laterales utilizando mancuernas."
+    },
+    {
+        "id": 66,
+        "nombre": "Elevaciones de gemelos en máquina",
+        "grupoMuscular": "Gemelo",
+        "variable": "",
+        "descripcion": "Variación de las elevaciones de gemelos utilizando una máquina específica."
+    },
+    {
+        "id": 67,
+        "nombre": "Peso muerto rumano con mancuernas",
+        "grupoMuscular": "Femoral",
+        "variable": "",
+        "descripcion": "Variación del peso muerto rumano utilizando mancuernas."
+    },
+    {
+        "id": 68,
+        "nombre": "Flexiones declinadas",
+        "grupoMuscular": "Pecho",
+        "variable": "",
+        "descripcion": "Flexiones con los pies elevados, enfocando más en la porción inferior del pecho."
+    },
+    {
+        "id": 69,
+        "nombre": "Remo en polea baja",
+        "grupoMuscular": "Espalda",
+        "variable": "",
+        "descripcion": "Ejercicio de remo utilizando una polea baja para trabajar los músculos de la espalda."
+    },
+    {
+        "id": 70,
+        "nombre": "Fondos en máquina",
+        "grupoMuscular": "Tríceps",
+        "variable": "",
+        "descripcion": "Variación de los fondos utilizando una máquina específica para aislar los tríceps."
+    },
+    {
+        "id": 71,
+        "nombre": "Peso muerto sumo con mancuerna",
+        "grupoMuscular": "Femoral",
+        "variable": "",
+        "descripcion": "Variación del peso muerto sumo utilizando una sola mancuerna."
+    },
+    {
+        "id": 72,
+        "nombre": "Press militar con barra",
+        "grupoMuscular": "Hombros",
+        "variable": "",
+        "descripcion": "Variación del press militar utilizando una barra."
+    },
+    {
+        "id": 73,
+        "nombre": "Abdominales con rueda",
+        "grupoMuscular": "Abdomen",
+        "variable": "",
+        "descripcion": "Ejercicio para trabajar los músculos abdominales utilizando una rueda de ejercicio."
+    },
+    {
+        "id": 74,
+        "nombre": "Jalón agarre abierto",
+        "grupoMuscular": "Espalda",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 75,
+        "nombre": "Jalón máquina",
+        "grupoMuscular": "Espalda",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 76,
+        "nombre": "Jalón agarre cerrado",
+        "grupoMuscular": "Espalda",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 77,
+        "nombre": "Jalón agarre abierto neutro",
+        "grupoMuscular": "Espalda",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 78,
+        "nombre": "Remo gironda agarre cerrado",
+        "grupoMuscular": "Espalda",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 79,
+        "nombre": "Remo gironda barra ancha",
+        "grupoMuscular": "Espalda",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 80,
+        "nombre": "Remo gironda moviendo mano de prono a neutro",
+        "grupoMuscular": "Espalda",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 81,
+        "nombre": "Remo gironda barra ancha inclinado adelante",
+        "grupoMuscular": "Espalda",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 82,
+        "nombre": "Lumbar banco",
+        "grupoMuscular": "Espalda",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 83,
+        "nombre": "Aductor máquina",
+        "grupoMuscular": "Aductor",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 84,
+        "nombre": "Prensa inclinada",
+        "grupoMuscular": "Cuádriceps",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 85,
+        "nombre": "Prensa horizontal",
+        "grupoMuscular": "Cuádriceps",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 86,
+        "nombre": "Sentadillas multipower",
+        "grupoMuscular": "Cuádriceps",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 87,
+        "nombre": "Sentadillas mancuerna",
+        "grupoMuscular": "Cuádriceps",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 88,
+        "nombre": "Zancada estática",
+        "grupoMuscular": "Cuádriceps",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 89,
+        "nombre": "Zancada",
+        "grupoMuscular": "Cuádriceps",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 90,
+        "nombre": "Sentadillas dinámica",
+        "grupoMuscular": "Cuádriceps",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 91,
+        "nombre": "Sisi",
+        "grupoMuscular": "Cuádriceps",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 92,
+        "nombre": "Cruces máquina",
+        "grupoMuscular": "Pecho",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 93,
+        "nombre": "Hombro posterior máquina",
+        "grupoMuscular": "Hombros",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 94,
+        "nombre": "Femoral sentado máquina",
+        "grupoMuscular": "Femoral",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 95,
+        "nombre": "Femoral tumbado máquina",
+        "grupoMuscular": "Femoral",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 96,
+        "nombre": "Hip Thurst máquina",
+        "grupoMuscular": "Gluteo",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 97,
+        "nombre": "Hip Thurst barra",
+        "grupoMuscular": "Gluteo",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 98,
+        "nombre": "Gemelo máquina horizontal",
+        "grupoMuscular": "Gemelo",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 99,
+        "nombre": "Gemelo máquina inclinada",
+        "grupoMuscular": "Gemelo",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 100,
+        "nombre": "Gluteo máquina patada trasera",
+        "grupoMuscular": "Gluteo",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 101,
+        "nombre": "Pecho máquina plano horizontal",
+        "grupoMuscular": "Pecho",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 102,
+        "nombre": "Extensión triceps polea alta barra horizontal",
+        "grupoMuscular": "Tríceps",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 103,
+        "nombre": "Extensión triceps polea alta barra ancha horizontal",
+        "grupoMuscular": "Tríceps",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 104,
+        "nombre": "Extensión triceps polea alta cuerda",
+        "grupoMuscular": "Tríceps",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 105,
+        "nombre": "Extensión triceps polea alta tras nuca cuerda",
+        "grupoMuscular": "Tríceps",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 106,
+        "nombre": "Extensión triceps baja alta tras nuca cuerda",
+        "grupoMuscular": "Tríceps",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 107,
+        "nombre": "Extensión triceps polea baja tras nuca barra horizontal",
+        "grupoMuscular": "Tríceps",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 108,
+        "nombre": "Extensión triceps tras nuca mancuerna",
+        "grupoMuscular": "Tríceps",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 109,
+        "nombre": "Press francés",
+        "grupoMuscular": "Tríceps",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 110,
+        "nombre": "Press cerrado multipower",
+        "grupoMuscular": "Tríceps",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 111,
+        "nombre": "Curl araña barra",
+        "grupoMuscular": "Bíceps",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 112,
+        "nombre": "Curl araña mancuernas",
+        "grupoMuscular": "Bíceps",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 113,
+        "nombre": "Curl bíceps banco scott mancuerna 1 mano",
+        "grupoMuscular": "Bíceps",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 114,
+        "nombre": "Curl bíceps banco scott barra",
+        "grupoMuscular": "Bíceps",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 115,
+        "nombre": "Curl mancuerna simultaneo",
+        "grupoMuscular": "Bíceps",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 116,
+        "nombre": "Curl mancuerna alterno",
+        "grupoMuscular": "Bíceps",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 117,
+        "nombre": "Curl martillo mancuernas",
+        "grupoMuscular": "Bíceps",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 118,
+        "nombre": "Curl martillo polea baja cuerda",
+        "grupoMuscular": "Bíceps",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 119,
+        "nombre": "Curl mancuerna alterno sentado",
+        "grupoMuscular": "Bíceps",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 120,
+        "nombre": "Curl mancuerna simultaneo sentado",
+        "grupoMuscular": "Bíceps",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 121,
+        "nombre": "Curl bíceps banco scott máquina",
+        "grupoMuscular": "Bíceps",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 122,
+        "nombre": "Curl bíceps 1 mano banco scott máquina",
+        "grupoMuscular": "Bíceps",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 123,
+        "nombre": "Curl invertido barra",
+        "grupoMuscular": "Bíceps",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 124,
+        "nombre": "Gemelo de pié una pierna",
+        "grupoMuscular": "Gemelo",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 125,
+        "nombre": "Abdomen polea alta una mano",
+        "grupoMuscular": "Abdomen",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 126,
+        "nombre": "Face Pull",
+        "grupoMuscular": "Hombros",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 127,
+        "nombre": "Remo al mentón barra Z",
+        "grupoMuscular": "Hombros",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 128,
+        "nombre": "Remo al mentón mancuerna",
+        "grupoMuscular": "Hombros",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 129,
+        "nombre": "Pájaros mancuerna",
+        "grupoMuscular": "Hombros",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 130,
+        "nombre": "Pájaros mancuerna banco inclinado",
+        "grupoMuscular": "Hombros",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 131,
+        "nombre": "Elevaciones laterales mancuerna dos manos",
+        "grupoMuscular": "Hombros",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 132,
+        "nombre": "Media elevación lateral mancuerna dos manos",
+        "grupoMuscular": "Hombros",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 133,
+        "nombre": "Remo gironda barra agarre neutro",
+        "grupoMuscular": "Espalda",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 134,
+        "nombre": "Sentadilla sumo mancuerna",
+        "grupoMuscular": "Aductor",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 135,
+        "nombre": "Sentadilla sumo multipower",
+        "grupoMuscular": "Aductor",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 136,
+        "nombre": "Pull Over polea",
+        "grupoMuscular": "Espalda",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 137,
+        "nombre": "Remo polea baja 1 mano",
+        "grupoMuscular": "Aductor",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 138,
+        "nombre": "Sentadilla Hack",
+        "grupoMuscular": "Cuádriceps",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 139,
+        "nombre": "Curl martillo sentado alterno",
+        "grupoMuscular": "Bíceps",
+        "variable": "",
+        "descripcion": ""
+    },
+    {
+        "id": 140,
+        "nombre": "Curl martillo sentado simultaneo",
+        "grupoMuscular": "Bíceps",
+        "variable": "",
+        "descripcion": ""
+    }
+]

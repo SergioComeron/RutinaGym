@@ -17,8 +17,19 @@ struct DetalleEntrenamientoView: View {
                 Text("Nombre: \(entrenamiento.nombre)")
                 Text("Fecha: \(entrenamiento.fecha, formatter: dateFormatter)")
             }
-            
-            Section(header: Text("Series")) {
+
+            Section(header: Text("Resumen de Series")) {
+                if entrenamiento.seriesResumen.isEmpty {
+                    Text("No hay series para este entrenamiento")
+                        .foregroundColor(.gray)
+                } else {
+                    ForEach(entrenamiento.seriesResumen, id: \.self) { resumen in
+                        Text(resumen)
+                    }
+                }
+            }
+
+            Section(header: Text("Series Detalladas")) {
                 if let series = entrenamiento.series, !series.isEmpty {
                     ForEach(series) { serie in
                         VStack(alignment: .leading) {
@@ -46,6 +57,7 @@ struct DetalleEntrenamientoView: View {
                         .foregroundColor(.gray)
                 }
             }
+            
         }
         .navigationTitle(entrenamiento.nombre)
         .toolbar {

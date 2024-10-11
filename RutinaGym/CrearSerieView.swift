@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct CrearSerieView: View {
     @Environment(\.dismiss) private var dismiss
@@ -18,21 +17,15 @@ struct CrearSerieView: View {
     @Environment(\.modelContext) private var modelContext
     @State var vm = EjercicioVM()
     @State private var mostrarSelectorDeEjercicio = false
-    
+    @State private var numeroDeSeries: Int = 4
+    @State private var repeticionesPorSerie: [Int] = []
+
     // Closure para devolver la serie creada
     var onSave: (Serie) -> Void
-    
+
     var body: some View {
         NavigationView {
             Form {
-                Section(header: Text("Detalles de la Serie")) {
-                    Stepper(value: $repeticiones, in: 1...20) {
-                        Text("Repeticiones: \(repeticiones)")
-                    }
-                    
-                    TextField("Descripción", text: $descripcion)
-                }
-                
                 Section(header: Text("Tipo de Serie")) {
                     Picker("Tipo de Serie", selection: $tipoSerie) {
                         ForEach(TipoSerie.allCases, id: \.self) { tipo in
@@ -40,8 +33,47 @@ struct CrearSerieView: View {
                         }
                     }
                     .pickerStyle(SegmentedPickerStyle())
+                    .onChange(of: tipoSerie) {
+                        adjustRepeticionesPorSerie()
+                    }
                 }
-                
+
+                Section(header: Text("Número de Series")) {
+                    Stepper(value: $numeroDeSeries, in: 1...10) {
+                        Text("Número de Series: \(numeroDeSeries)")
+                    }
+                    .onChange(of: numeroDeSeries) {
+                        adjustRepeticionesPorSerie()
+                    }
+                }
+
+                Section(header: Text("Detalles de la Serie")) {
+                    if tipoSerie == .subiendoPeso {
+                        ForEach(0..<numeroDeSeries, id: \.self) { index in
+                            Stepper(value: Binding(
+                                get: {
+                                    repeticionesPorSerie.indices.contains(index) ? repeticionesPorSerie[index] : 10
+                                },
+                                set: { newValue in
+                                    if repeticionesPorSerie.indices.contains(index) {
+                                        repeticionesPorSerie[index] = newValue
+                                    } else {
+                                        repeticionesPorSerie.append(newValue)
+                                    }
+                                }
+                            ), in: 1...20) {
+                                Text("Serie \(index + 1): \(repeticionesPorSerie.indices.contains(index) ? repeticionesPorSerie[index] : 10) repeticiones")
+                            }
+                        }
+                    } else {
+                        Stepper(value: $repeticiones, in: 1...20) {
+                            Text("Repeticiones: \(repeticiones)")
+                        }
+                    }
+
+                    TextField("Descripción", text: $descripcion)
+                }
+
                 Section(header: Text("Ejercicio")) {
                     Button(action: {
                         mostrarSelectorDeEjercicio = true
@@ -61,7 +93,7 @@ struct CrearSerieView: View {
                         )
                     }
                 }
-                
+
                 Section(header: Text("Observaciones")) {
                     ZStack {
                         TextEditor(text: $observaciones)
@@ -69,7 +101,7 @@ struct CrearSerieView: View {
                             .padding(4)
                             .background(Color(.systemGray6))
                             .cornerRadius(8)
-                        
+
                         if observaciones.isEmpty {
                             Text("Escribe tus observaciones aquí...")
                                 .foregroundColor(.gray)
@@ -94,15 +126,18 @@ struct CrearSerieView: View {
                     }
                 }
             }
+            .onAppear {
+                adjustRepeticionesPorSerie()
+            }
         }
     }
-    
+
     struct SelectorDeEjercicioView: View {
         let ejercicios: [Ejercicio]
         @Binding var ejercicioSeleccionado: Ejercicio?
         @Binding var mostrarSelectorDeEjercicio: Bool
 
-        @State private var grupoSeleccionado: GrupoMuscular = .hombros // Grupo muscular seleccionado por defecto
+        @State private var grupoSeleccionado: GrupoMuscular = .hombros
         private var ejerciciosFiltrados: [Ejercicio] {
             ejercicios.filter { $0.grupoMuscular == grupoSeleccionado }
         }
@@ -110,16 +145,14 @@ struct CrearSerieView: View {
         var body: some View {
             NavigationView {
                 VStack {
-                    // Picker para seleccionar el grupo muscular
                     Picker("Grupo Muscular", selection: $grupoSeleccionado) {
                         ForEach(GrupoMuscular.allCases, id: \.self) { grupo in
                             Text(grupo.rawValue.capitalized)
                         }
                     }
-                    .pickerStyle(MenuPickerStyle()) // Cambiamos a MenuPickerStyle
+                    .pickerStyle(MenuPickerStyle())
                     .padding()
 
-                    // Lista de ejercicios filtrados por el grupo muscular seleccionado
                     List(ejerciciosFiltrados) { ejercicio in
                         Button(action: {
                             ejercicioSeleccionado = ejercicio
@@ -141,24 +174,50 @@ struct CrearSerieView: View {
         }
     }
 
+    private func adjustRepeticionesPorSerie() {
+        if tipoSerie == .subiendoPeso {
+            if repeticionesPorSerie.count != numeroDeSeries {
+                repeticionesPorSerie = Array(repeating: repeticiones, count: numeroDeSeries)
+            }
+        } else {
+            repeticionesPorSerie = []
+        }
+    }
 
-    
     private func guardarSerie() {
         guard let ejercicio = ejercicio else { return }
-        
-        let nuevaSerie = Serie(
-            repeticiones: repeticiones,
-            descripcion: descripcion.isEmpty ? nil : descripcion,
-            ejercicios: ejercicio,
-            tipoSerie: tipoSerie,
-            observaciones: observaciones.isEmpty ? nil : observaciones
-        )
-        
-        // Devolver la serie creada a través del closure
-        onSave(nuevaSerie)
+
+        if tipoSerie == .subiendoPeso {
+            for index in 0..<numeroDeSeries {
+                let rep = repeticionesPorSerie.indices.contains(index) ? repeticionesPorSerie[index] : repeticiones
+                let nuevaSerie = Serie(
+                    repeticiones: rep,
+                    descripcion: descripcion.isEmpty ? nil : descripcion,
+                    ejercicios: ejercicio,
+                    tipoSerie: tipoSerie,
+                    observaciones: observaciones.isEmpty ? nil : observaciones
+                )
+                // Devolver la serie creada a través del closure
+                onSave(nuevaSerie)
+            }
+        } else {
+            for _ in 0..<numeroDeSeries {
+                let nuevaSerie = Serie(
+                    repeticiones: repeticiones,
+                    descripcion: descripcion.isEmpty ? nil : descripcion,
+                    ejercicios: ejercicio,
+                    tipoSerie: tipoSerie,
+                    observaciones: observaciones.isEmpty ? nil : observaciones
+                )
+                // Devolver la serie creada a través del closure
+                onSave(nuevaSerie)
+            }
+        }
         dismiss()
     }
 }
+
+
 
 
 

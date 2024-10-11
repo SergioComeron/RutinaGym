@@ -9,6 +9,7 @@ import SwiftData
 import Foundation
 
 enum TipoSerie: String, Codable, CaseIterable {
+    case subiendoPeso
     case normal
     case dropSet
     case alFallo
@@ -20,18 +21,20 @@ final class Serie: Identifiable {
     var repeticiones: Int = 15
     var descripcion: String?
     var ejercicios: Ejercicio?
-    var tipoSerie: TipoSerie = TipoSerie.normal
+    var tipoSerie: TipoSerie = TipoSerie.subiendoPeso
     var observaciones: String?
-
+    var fechaCreacion: Date = Date()
+    
     var entrenamiento: Entrenamiento?
-
-    init(repeticiones: Int, descripcion: String? = nil, ejercicios: Ejercicio, tipoSerie: TipoSerie, entrenamiento: Entrenamiento? = nil, observaciones: String? = nil) {
+    
+    init(repeticiones: Int, descripcion: String?, ejercicios: Ejercicio?, tipoSerie: TipoSerie, observaciones: String?) {
         self.repeticiones = repeticiones
         self.descripcion = descripcion
         self.ejercicios = ejercicios
         self.tipoSerie = tipoSerie
-        self.entrenamiento = entrenamiento
         self.observaciones = observaciones
+        self.fechaCreacion = Date() // Establecemos la fecha actual
     }
 }
+
 

@@ -10,6 +10,7 @@ import SwiftUI
 struct DetalleEntrenamientoView: View {
     var entrenamiento: Entrenamiento
     @State private var mostrarEditarEntrenamiento = false // Estado para mostrar la vista de edición
+    @State private var mostrarSeriesDetalladas = false    // Estado para mostrar/ocultar Series Detalladas
 
     var body: some View {
         List {
@@ -29,35 +30,56 @@ struct DetalleEntrenamientoView: View {
                 }
             }
 
-            Section(header: Text("Series Detalladas")) {
-                if let series = entrenamiento.series, !series.isEmpty {
-                    ForEach(series) { serie in
-                        VStack(alignment: .leading) {
-                            if let ejercicio = serie.ejercicios {
-                                Text(ejercicio.nombre)
-                                    .font(.headline)
-                            } else {
-                                Text("Ejercicio no disponible")
-                                    .font(.headline)
-                                    .foregroundColor(.red)
-                            }
-                            Text("Repeticiones: \(serie.repeticiones)")
-                            Text("Tipo de Serie: \(serie.tipoSerie.rawValue.capitalized)")
-                            if let descripcion = serie.descripcion {
-                                Text("Descripción: \(descripcion)")
-                            }
-                            if let observaciones = serie.observaciones {
-                                Text("Observaciones: \(observaciones)")
-                            }
-                        }
-                        .padding(.vertical, 5)
-                    }
-                } else {
-                    Text("No hay series para este entrenamiento")
-                        .foregroundColor(.gray)
+            // Botón para mostrar/ocultar Series Detalladas
+            Button(action: {
+                withAnimation {
+                    mostrarSeriesDetalladas.toggle()
+                }
+            }) {
+                HStack {
+                    Text(mostrarSeriesDetalladas ? "Ocultar Series Detalladas" : "Mostrar Series Detalladas")
+                    Spacer()
+                    Image(systemName: mostrarSeriesDetalladas ? "chevron.up" : "chevron.down")
+                        .foregroundColor(.blue)
                 }
             }
-            
+            .buttonStyle(PlainButtonStyle()) // Para que el botón se vea como una celda de la lista
+
+            // Sección Series Detalladas condicionada al estado mostrarSeriesDetalladas
+            if mostrarSeriesDetalladas {
+                Section(header: Text("Series Detalladas")) {
+                    if let series = entrenamiento.series, !series.isEmpty {
+                        ForEach(series) { serie in
+                            VStack(alignment: .leading) {
+                                if let ejercicio = serie.ejercicios {
+                                    Text(ejercicio.nombre)
+                                        .font(.headline)
+                                } else {
+                                    Text("Ejercicio no disponible")
+                                        .font(.headline)
+                                        .foregroundColor(.red)
+                                }
+                                if let repeticiones = serie.repeticiones {
+                                    Text("Repeticiones: \(repeticiones)")
+                                } else {
+                                    Text("Repeticiones: No establecidas")
+                                }
+                                Text("Tipo de Serie: \(serie.tipoSerie.rawValue.capitalized)")
+                                if let descripcion = serie.descripcion {
+                                    Text("Descripción: \(descripcion)")
+                                }
+                                if let observaciones = serie.observaciones {
+                                    Text("Observaciones: \(observaciones)")
+                                }
+                            }
+                            .padding(.vertical, 5)
+                        }
+                    } else {
+                        Text("No hay series para este entrenamiento")
+                            .foregroundColor(.gray)
+                    }
+                }
+            }
         }
         .navigationTitle(entrenamiento.nombre)
         .toolbar {
@@ -72,4 +94,5 @@ struct DetalleEntrenamientoView: View {
         }
     }
 }
+
 

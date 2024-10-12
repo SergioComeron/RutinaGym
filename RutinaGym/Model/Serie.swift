@@ -18,7 +18,7 @@ enum TipoSerie: String, Codable, CaseIterable {
 
 @Model
 final class Serie: Identifiable {
-    var repeticiones: Int = 15
+    var repeticiones: Int? = 15
     var descripcion: String?
     var ejercicios: Ejercicio?
     var tipoSerie: TipoSerie = TipoSerie.subiendoPeso
@@ -27,7 +27,7 @@ final class Serie: Identifiable {
     
     var entrenamiento: Entrenamiento?
     
-    init(repeticiones: Int, descripcion: String?, ejercicios: Ejercicio?, tipoSerie: TipoSerie, observaciones: String?) {
+    init(repeticiones: Int?, descripcion: String?, ejercicios: Ejercicio?, tipoSerie: TipoSerie, observaciones: String?) {
         self.repeticiones = repeticiones
         self.descripcion = descripcion
         self.ejercicios = ejercicios

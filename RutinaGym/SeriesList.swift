@@ -17,7 +17,7 @@ struct SerieListView: View {
         NavigationView {
             List(series) { serie in
                 VStack(alignment: .leading) {
-                    Text("Repeticiones: \(serie.repeticiones)")
+                    Text("Repeticiones: \(serie.repeticiones ?? 0)")
                         .font(.headline)
                     Text("Tipo de Serie: \(serie.tipoSerie.rawValue.capitalized)")
                         .font(.subheadline)

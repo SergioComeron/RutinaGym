@@ -11,7 +11,7 @@ struct CrearSerieView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var repeticiones: Int = 15
     @State private var descripcion: String = ""
-    @State private var tipoSerie: TipoSerie = .normal
+    @State private var tipoSerie: TipoSerie = .subiendoPeso
     @State private var ejercicio: Ejercicio?
     @State private var observaciones: String = ""
     @Environment(\.modelContext) private var modelContext
@@ -26,6 +26,7 @@ struct CrearSerieView: View {
     var body: some View {
         NavigationView {
             Form {
+                // Sección de Tipo de Serie
                 Section(header: Text("Tipo de Serie")) {
                     Picker("Tipo de Serie", selection: $tipoSerie) {
                         ForEach(TipoSerie.allCases, id: \.self) { tipo in
@@ -38,15 +39,21 @@ struct CrearSerieView: View {
                     }
                 }
 
+                // Sección de Número de Series
                 Section(header: Text("Número de Series")) {
-                    Stepper(value: $numeroDeSeries, in: 1...10) {
-                        Text("Número de Series: \(numeroDeSeries)")
-                    }
-                    .onChange(of: numeroDeSeries) {
-                        adjustRepeticionesPorSerie()
+                    if tipoSerie == .dropSet {
+                        Text("Número de Series: 3")
+                    } else {
+                        Stepper(value: $numeroDeSeries, in: 1...10) {
+                            Text("Número de Series: \(numeroDeSeries)")
+                        }
+                        .onChange(of: numeroDeSeries) {
+                            adjustRepeticionesPorSerie()
+                        }
                     }
                 }
 
+                // Sección de Detalles de la Serie
                 Section(header: Text("Detalles de la Serie")) {
                     if tipoSerie == .subiendoPeso {
                         ForEach(0..<numeroDeSeries, id: \.self) { index in
@@ -65,6 +72,10 @@ struct CrearSerieView: View {
                                 Text("Serie \(index + 1): \(repeticionesPorSerie.indices.contains(index) ? repeticionesPorSerie[index] : 10) repeticiones")
                             }
                         }
+                    } else if tipoSerie == .dropSet {
+                        Text("Repeticiones: 6")
+                    } else if tipoSerie == .alFallo {
+                        Text("Repeticiones: Al fallo")
                     } else {
                         Stepper(value: $repeticiones, in: 1...20) {
                             Text("Repeticiones: \(repeticiones)")
@@ -74,6 +85,7 @@ struct CrearSerieView: View {
                     TextField("Descripción", text: $descripcion)
                 }
 
+                // Sección de Ejercicio
                 Section(header: Text("Ejercicio")) {
                     Button(action: {
                         mostrarSelectorDeEjercicio = true
@@ -94,6 +106,7 @@ struct CrearSerieView: View {
                     }
                 }
 
+                // Sección de Observaciones
                 Section(header: Text("Observaciones")) {
                     ZStack {
                         TextEditor(text: $observaciones)
@@ -132,6 +145,7 @@ struct CrearSerieView: View {
         }
     }
 
+    // Selector de Ejercicio
     struct SelectorDeEjercicioView: View {
         let ejercicios: [Ejercicio]
         @Binding var ejercicioSeleccionado: Ejercicio?
@@ -174,16 +188,21 @@ struct CrearSerieView: View {
         }
     }
 
+    // Ajuste de Repeticiones por Serie
     private func adjustRepeticionesPorSerie() {
         if tipoSerie == .subiendoPeso {
             if repeticionesPorSerie.count != numeroDeSeries {
                 repeticionesPorSerie = Array(repeating: repeticiones, count: numeroDeSeries)
             }
+        } else if tipoSerie == .dropSet {
+            numeroDeSeries = 3
+            repeticionesPorSerie = [6, 6, 6]
         } else {
             repeticionesPorSerie = []
         }
     }
 
+    // Guardar Serie
     private func guardarSerie() {
         guard let ejercicio = ejercicio else { return }
 
@@ -197,7 +216,28 @@ struct CrearSerieView: View {
                     tipoSerie: tipoSerie,
                     observaciones: observaciones.isEmpty ? nil : observaciones
                 )
-                // Devolver la serie creada a través del closure
+                onSave(nuevaSerie)
+            }
+        } else if tipoSerie == .dropSet {
+            for _ in 0..<3 {
+                let nuevaSerie = Serie(
+                    repeticiones: 6,
+                    descripcion: descripcion.isEmpty ? nil : descripcion,
+                    ejercicios: ejercicio,
+                    tipoSerie: tipoSerie,
+                    observaciones: observaciones.isEmpty ? nil : observaciones
+                )
+                onSave(nuevaSerie)
+            }
+        } else if tipoSerie == .alFallo {
+            for _ in 0..<numeroDeSeries {
+                let nuevaSerie = Serie(
+                    repeticiones: nil, // Establecemos repeticiones como nil
+                    descripcion: descripcion.isEmpty ? nil : descripcion,
+                    ejercicios: ejercicio,
+                    tipoSerie: tipoSerie,
+                    observaciones: observaciones.isEmpty ? nil : observaciones
+                )
                 onSave(nuevaSerie)
             }
         } else {
@@ -209,13 +249,13 @@ struct CrearSerieView: View {
                     tipoSerie: tipoSerie,
                     observaciones: observaciones.isEmpty ? nil : observaciones
                 )
-                // Devolver la serie creada a través del closure
                 onSave(nuevaSerie)
             }
         }
         dismiss()
     }
 }
+
 
 
 

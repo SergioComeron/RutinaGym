@@ -40,7 +40,7 @@ struct CrearEntrenamientoView: View {
                                             .font(.headline)
                                             .foregroundColor(.red)
                                     }
-                                    Text("Repeticiones: \(serie.repeticiones)")
+                                    Text("Repeticiones: \(serie.repeticiones ?? 0)")
                                     Text("Tipo de Serie: \(serie.tipoSerie.rawValue.capitalized)")
                                     if let descripcion = serie.descripcion {
                                         Text("Descripción: \(descripcion)")

@@ -24,7 +24,7 @@ struct DetalleEntrenamientoViewWatch: View {
                                     .font(.headline)
                                     .foregroundColor(.red)
                             }
-                            Text("Reps: \(serie.repeticiones)")
+                            Text("Reps: \(serie.repeticiones ?? 0)")
                                 .font(.caption)
                             Text("Tipo: \(serie.tipoSerie.rawValue)")
                                 .font(.caption2)

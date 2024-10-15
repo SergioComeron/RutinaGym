@@ -44,8 +44,10 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Model/Entrenamiento.swift,
+				Model/EntrenamientoRealizado.swift,
 				Model/Model.swift,
 				Model/Serie.swift,
+				Model/SerieRealizada.swift,
 			);
 			target = 1B9E4A5F2CB7E0C600E74FC5 /* RutinaGymWatch Watch App */;
 		};

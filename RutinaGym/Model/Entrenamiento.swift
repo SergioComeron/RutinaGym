@@ -16,6 +16,9 @@ final class Entrenamiento: Identifiable {
     @Relationship(deleteRule: .cascade, inverse: \Serie.entrenamiento)
     var series: [Serie]? = []
 
+    @Relationship(deleteRule: .cascade, inverse: \EntrenamientoRealizado.entrenamientoPlanificado)
+    var entrenamientosRealizados: [EntrenamientoRealizado]? = []
+    
     init(nombre: String, fecha: Date = Date(), series: [Serie] = []) {
         self.nombre = nombre
         self.fecha = fecha

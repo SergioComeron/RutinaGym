@@ -8,8 +8,6 @@
 import SwiftData
 import SwiftUI
 
-import SwiftUI
-
 struct EntrenamientoListViewWatch: View {
     @Query(sort: \Entrenamiento.fecha, order: .reverse) var entrenamientos: [Entrenamiento]
 

@@ -112,15 +112,14 @@ struct DetalleEntrenamientoView: View {
                                     .padding(.vertical, 5)
                                 }
                             }
+                            .onDelete(perform: eliminarEntrenamientos)
                         }
                     }
                 }
                 .navigationTitle(entrenamiento.nombre)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        Button("Editar") {
-                            mostrarEditarEntrenamiento = true
-                        }
+                        EditButton()
                     }
                 }
                 .sheet(isPresented: $mostrarEditarEntrenamiento) {
@@ -148,7 +147,16 @@ struct DetalleEntrenamientoView: View {
         entrenamientoEnCurso = nuevoEntrenamientoRealizado
         modelContext.insert(nuevoEntrenamientoRealizado)
     }
+
+    private func eliminarEntrenamientos(at offsets: IndexSet) {
+        for index in offsets {
+            let entrenamientoAEliminar = entrenamientosRealizadosEntrenamiento[index]
+            modelContext.delete(entrenamientoAEliminar)
+        }
+    }
 }
+
+
 
 
 

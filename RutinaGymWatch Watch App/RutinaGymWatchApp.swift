@@ -12,7 +12,7 @@ struct RutinaGymWatch_Watch_AppApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .modelContainer(for: [Serie.self, Entrenamiento.self])
+                .modelContainer(for: [Serie.self, Entrenamiento.self, SerieRealizada.self, EntrenamientoRealizado.self])
         }
     }
 }

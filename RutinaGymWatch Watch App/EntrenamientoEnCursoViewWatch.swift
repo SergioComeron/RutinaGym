@@ -15,30 +15,51 @@ struct EntrenamientoEnCursoViewWatch: View {
     @State private var mostrandoAlertaFinalizar = false
 
     var body: some View {
-        VStack {
-            if let entrenamientoRealizado = entrenamientoRealizado,
-               let entrenamientoPlanificado = entrenamientoRealizado.entrenamientoPlanificado,
-               let seriesPlanificadas = entrenamientoPlanificado.series,
-               !seriesPlanificadas.isEmpty {
+        NavigationView {
+            VStack {
+                if let entrenamientoRealizado = entrenamientoRealizado,
+                   let entrenamientoPlanificado = entrenamientoRealizado.entrenamientoPlanificado,
+                   let seriesPlanificadas = entrenamientoPlanificado.series,
+                   !seriesPlanificadas.isEmpty {
 
-                // Lista de series planificadas
-                List(seriesPlanificadas, id: \.id) { serie in
-                    NavigationLink(destination: SerieRealizadaViewWatch(seriePlanificada: serie, entrenamientoRealizado: entrenamientoRealizado)) {
-                        VStack(alignment: .leading) {
-                            Text(serie.ejercicios?.nombre ?? "Ejercicio sin nombre")
-                                .font(.headline)
-                            Text("Reps: \(serie.repeticiones ?? 0)")
-                                .font(.footnote)
-                                .foregroundColor(.secondary)
+                    // Lista de series planificadas
+                    List(seriesPlanificadas, id: \.id) { serie in
+                        NavigationLink(destination: SerieRealizadaViewWatch(seriePlanificada: serie, entrenamientoRealizado: entrenamientoRealizado)) {
+                            VStack(alignment: .leading) {
+                                Text(serie.ejercicios?.nombre ?? "Ejercicio sin nombre")
+                                    .font(.headline)
+                                Text("Reps: \(serie.repeticiones ?? 0)")
+                                    .font(.footnote)
+                                    .foregroundColor(.secondary)
+                            }
                         }
                     }
+                } else {
+                    Text("No hay series planificadas para este entrenamiento")
+                        .foregroundColor(.gray)
+                        .font(.headline)
                 }
-            } else {
-                Text("No hay series planificadas para este entrenamiento")
-                    .foregroundColor(.gray)
-                    .font(.headline)
+            }
+            .navigationTitle("Entrenamiento")
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Finalizar") {
+                        mostrandoAlertaFinalizar = true
+                    }
+                }
+            }
+            .alert(isPresented: $mostrandoAlertaFinalizar) {
+                Alert(
+                    title: Text("Finalizar Entrenamiento"),
+                    message: Text("¿Estás seguro de que deseas finalizar el entrenamiento?"),
+                    primaryButton: .destructive(Text("Finalizar")) {
+                        finalizarEntrenamiento()
+                    },
+                    secondaryButton: .cancel()
+                )
             }
         }
+
         .navigationTitle("Entrenamiento")
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {

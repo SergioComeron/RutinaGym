@@ -11,20 +11,14 @@ import Charts
 struct SerieRealizadaView: View {
     var seriesPlanificadas: [Serie]
     @Bindable var entrenamientoRealizado: EntrenamientoRealizado
-    @State private var currentIndex = 0 {
-        didSet {
-            // Actualizar las repeticiones al cambiar el indice actual
-            if currentIndex < seriesPlanificadas.count {
-                repeticionesRealizadas = "\(seriesPlanificadas[currentIndex].repeticiones ?? 0)"
-            }
-        }
-    }
+    @State private var currentIndex = 0
     @State private var pesoUtilizado: String = ""
     @State private var repeticionesRealizadas: String = ""
     @Environment(\.modelContext) private var modelContext
     @State private var seriesGuardadas: [Int: Bool] = [:] // Diccionario para mantener el estado de series guardadas
     @Query private var todasLasSeriesRealizadas: [SerieRealizada] // Utiliza Query para obtener las series
-    @State private var entrenamientoCompletado = false // Nuevo estado para comprobar si el entrenamiento está completo
+    @State private var entrenamientoCompletado = false // Estado para comprobar si el entrenamiento está completo
+    @Environment(\.colorScheme) var colorScheme // Para detectar el modo oscuro o claro
 
     var body: some View {
         VStack {
@@ -34,7 +28,6 @@ struct SerieRealizadaView: View {
                     .foregroundColor(.green)
                     .padding()
             } else if !seriesPlanificadas.isEmpty {
-                // Ordenar las series planificadas antes de mostrarlas
                 let seriesOrdenadas = seriesPlanificadas.sorted(by: { $0.fechaCreacion < $1.fechaCreacion })
                 ProgressView(value: Double(currentIndex + 1), total: Double(seriesPlanificadas.count))
                     .padding(.bottom, 10)
@@ -58,7 +51,7 @@ struct SerieRealizadaView: View {
 
                                 // Obtener el peso máximo registrado para el ejercicio actual
                                 let pesoMaximo = pesoMaximoParaEjercicio(seriePlanificada.ejercicios?.nombre)
-                                
+
                                 if let pesoMaximo = pesoMaximo {
                                     Text("Peso máximo registrado: \(pesoMaximo, specifier: "%.2f") kg")
                                         .font(.subheadline)
@@ -96,7 +89,6 @@ struct SerieRealizadaView: View {
                                         .padding(.vertical, 5)
                                         .textFieldStyle(.roundedBorder)
                                         .onAppear {
-                                            // Inicializar las repeticiones con las planificadas cuando aparece la vista
                                             repeticionesRealizadas = "\(seriePlanificada.repeticiones ?? 0)"
                                         }
 
@@ -109,25 +101,25 @@ struct SerieRealizadaView: View {
                                 Button("Guardar Serie") {
                                     guardarSerie(seriePlanificada: seriePlanificada, index: index)
                                 }
-                                .disabled(seriesGuardadas[index] == true) // Deshabilitar si ya está guardado
+                                .disabled(seriesGuardadas[index] == true)
                                 .padding(.top, 10)
                             }
-                            .padding() // Padding interno de la tarjeta
+                            .padding()
                             .background(
                                 RoundedRectangle(cornerRadius: 15)
-                                    .fill(Color.white)
+                                    .fill(colorScheme == .dark ? Color.black : Color.white)
                                     .shadow(color: .gray.opacity(0.4), radius: 5, x: 0, y: 2)
                             )
-                            .padding(.horizontal) // Espacio fuera de la tarjeta para evitar que toque los bordes
+                            .padding(.horizontal)
                         }
                         .padding()
                         .tag(index)
-                        .transition(.slide) // Transición al cambiar de serie
+                        .transition(.slide)
                     }
                 }
                 .tabViewStyle(.page)
-                .frame(height: 450) // Ajustar la altura según sea necesario
-                .animation(.easeInOut, value: currentIndex) // Animación suave al cambiar de serie
+                .frame(height: 450)
+                .animation(.easeInOut, value: currentIndex)
             } else {
                 Text("No hay más series planificadas")
                     .foregroundColor(.gray)
@@ -135,6 +127,9 @@ struct SerieRealizadaView: View {
             }
         }
         .padding()
+        .onAppear {
+            inicializarSeriesGuardadas()
+        }
     }
 
     private func ajustarPeso(_ cantidad: Double) {
@@ -162,17 +157,21 @@ struct SerieRealizadaView: View {
         )
 
         // Añadir la nueva serie al entrenamiento
-        if var seriesRealizadas = entrenamientoRealizado.seriesRealizadas {
-            seriesRealizadas.append(nuevaSerieRealizada)
+        if entrenamientoRealizado.seriesRealizadas == nil {
+            entrenamientoRealizado.seriesRealizadas = []
         }
 
+        entrenamientoRealizado.seriesRealizadas?.append(nuevaSerieRealizada)
         modelContext.insert(nuevaSerieRealizada)
 
         // Marcar la serie como guardada
         seriesGuardadas[index] = true
 
-        // Comprobar si todas las series han sido guardadas
-        if seriesGuardadas.count == seriesPlanificadas.count {
+        // Comprobar si todas las series planificadas han sido guardadas
+        let totalSeriesPlanificadas = seriesPlanificadas.count
+        let totalSeriesGuardadas = seriesGuardadas.filter { $0.value == true }.count
+
+        if totalSeriesGuardadas == totalSeriesPlanificadas {
             // Si todas las series están guardadas, marcar el entrenamiento como completado
             entrenamientoCompletado = true
         } else {
@@ -184,19 +183,24 @@ struct SerieRealizadaView: View {
             }
         }
 
-        // Opcional: Guarda el contexto si es necesario
-        // try? modelContext.save()
+        do {
+            try modelContext.save()
+        } catch {
+            print("Error guardando el contexto: \(error)")
+        }
     }
 
-    // Función para obtener el peso máximo registrado para un ejercicio específico
+
     private func pesoMaximoParaEjercicio(_ nombreEjercicio: String?) -> Double? {
         guard let nombreEjercicio = nombreEjercicio else { return nil }
-
-        // Filtrar las series realizadas para obtener solo aquellas del mismo ejercicio
         let seriesFiltradas = todasLasSeriesRealizadas.filter { $0.seriePlanificada?.ejercicios?.nombre == nombreEjercicio }
-
-        // Obtener el peso máximo de las series filtradas
         return seriesFiltradas.map { $0.pesoUtilizado ?? 0 }.max()
+    }
+
+    private func inicializarSeriesGuardadas() {
+        for index in 0..<seriesPlanificadas.count {
+            seriesGuardadas[index] = false
+        }
     }
 }
 

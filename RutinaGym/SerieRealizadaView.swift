@@ -22,6 +22,7 @@ struct SerieRealizadaView: View {
 
     var body: some View {
         VStack {
+            
             if entrenamientoCompletado {
                 Text("¡Entrenamiento completado!")
                     .font(.largeTitle)
@@ -29,44 +30,43 @@ struct SerieRealizadaView: View {
                     .padding()
             } else if !seriesPlanificadas.isEmpty {
                 let seriesOrdenadas = seriesPlanificadas.sorted(by: { $0.fechaCreacion < $1.fechaCreacion })
-                ProgressView(value: Double(currentIndex + 1), total: Double(seriesPlanificadas.count))
-                    .padding(.bottom, 10)
 
                 TabView(selection: $currentIndex) {
                     ForEach(0..<seriesOrdenadas.count, id: \.self) { index in
-                        VStack(alignment: .leading) {
+                        VStack(alignment: .leading, spacing: 20) {
                             let seriePlanificada = seriesOrdenadas[index]
 
-                            VStack(alignment: .leading, spacing: 10) {
-                                Text(seriePlanificada.ejercicios?.nombre ?? "Ejercicio sin nombre")
-                                    .font(.headline)
-                                    .padding(.bottom, 5)
+                            VStack(alignment: .leading, spacing: 15) {
+                                // El título del ejercicio ha sido eliminado
 
                                 Text("Tipo de Serie: \(seriePlanificada.tipoSerie.rawValue.capitalized)")
-                                    .font(.subheadline)
+                                    .font(.title3)
                                     .foregroundColor(.secondary)
 
                                 Text("Repeticiones planificadas: \(seriePlanificada.repeticiones ?? 0)")
-                                    .font(.subheadline)
+                                    .font(.title3)
 
                                 // Obtener el peso máximo registrado para el ejercicio actual
                                 let pesoMaximo = pesoMaximoParaEjercicio(seriePlanificada.ejercicios?.nombre)
 
                                 if let pesoMaximo = pesoMaximo {
                                     Text("Peso máximo registrado: \(pesoMaximo, specifier: "%.2f") kg")
-                                        .font(.subheadline)
+                                        .font(.title3)
                                         .foregroundColor(.green)
                                 }
 
-                                HStack {
+                                // Botones y campos de texto más grandes
+                                HStack(spacing: 15) {
                                     Button("-") {
                                         ajustarPeso(-0.5)
                                     }
                                     .buttonStyle(.bordered)
+                                    .font(.title2)
 
                                     TextField("Peso utilizado", text: $pesoUtilizado)
                                         .keyboardType(.decimalPad)
-                                        .padding(.vertical, 5)
+                                        .padding(.vertical, 10)
+                                        .font(.title3) // Tamaño más grande para el campo de texto
                                         .textFieldStyle(.roundedBorder)
                                         .onAppear {
                                             pesoUtilizado = "\(pesoMaximo ?? 0)"
@@ -76,17 +76,20 @@ struct SerieRealizadaView: View {
                                         ajustarPeso(0.5)
                                     }
                                     .buttonStyle(.bordered)
+                                    .font(.title2)
                                 }
 
-                                HStack {
+                                HStack(spacing: 15) {
                                     Button("-") {
                                         ajustarRepeticiones(-1)
                                     }
                                     .buttonStyle(.bordered)
+                                    .font(.title2)
 
                                     TextField("Repeticiones realizadas", text: $repeticionesRealizadas)
                                         .keyboardType(.numberPad)
-                                        .padding(.vertical, 5)
+                                        .padding(.vertical, 10)
+                                        .font(.title3) // Tamaño más grande para el campo de texto
                                         .textFieldStyle(.roundedBorder)
                                         .onAppear {
                                             repeticionesRealizadas = "\(seriePlanificada.repeticiones ?? 0)"
@@ -96,13 +99,15 @@ struct SerieRealizadaView: View {
                                         ajustarRepeticiones(1)
                                     }
                                     .buttonStyle(.bordered)
+                                    .font(.title2)
                                 }
 
                                 Button("Guardar Serie") {
                                     guardarSerie(seriePlanificada: seriePlanificada, index: index)
                                 }
                                 .disabled(seriesGuardadas[index] == true)
-                                .padding(.top, 10)
+                                .padding(.top, 20)
+                                .font(.title3)
                             }
                             .padding()
                             .background(
@@ -117,21 +122,27 @@ struct SerieRealizadaView: View {
                         .transition(.slide)
                     }
                 }
-                .tabViewStyle(.page)
-                .frame(height: 450)
+                .tabViewStyle(.page(indexDisplayMode: .always)) // Los puntos de la paginación abajo
+                .frame(height: 600) // Incrementar el tamaño de la vista
                 .animation(.easeInOut, value: currentIndex)
             } else {
                 Text("No hay más series planificadas")
                     .foregroundColor(.gray)
-                    .font(.headline)
+                    .font(.largeTitle) // Texto más grande para los mensajes de aviso
             }
+            ProgressView(value: Double(currentIndex + 1), total: Double(seriesPlanificadas.count))
+                .scaleEffect(1.5) // Aumentar tamaño del ProgressView
+                .padding(.vertical, 20)
+
         }
         .padding()
         .onAppear {
             inicializarSeriesGuardadas()
         }
+        
     }
 
+    // Ajuste de peso y repeticiones (sin cambios)
     private func ajustarPeso(_ cantidad: Double) {
         if let pesoActual = Double(pesoUtilizado) {
             let nuevoPeso = max(0, pesoActual + cantidad)
@@ -172,10 +183,8 @@ struct SerieRealizadaView: View {
         let totalSeriesGuardadas = seriesGuardadas.filter { $0.value == true }.count
 
         if totalSeriesGuardadas == totalSeriesPlanificadas {
-            // Si todas las series están guardadas, marcar el entrenamiento como completado
             entrenamientoCompletado = true
         } else {
-            // Pasar automáticamente a la siguiente serie si existe
             if currentIndex < seriesPlanificadas.count - 1 {
                 withAnimation {
                     currentIndex += 1
@@ -190,7 +199,6 @@ struct SerieRealizadaView: View {
         }
     }
 
-
     private func pesoMaximoParaEjercicio(_ nombreEjercicio: String?) -> Double? {
         guard let nombreEjercicio = nombreEjercicio else { return nil }
         let seriesFiltradas = todasLasSeriesRealizadas.filter { $0.seriePlanificada?.ejercicios?.nombre == nombreEjercicio }
@@ -203,5 +211,6 @@ struct SerieRealizadaView: View {
         }
     }
 }
+
 
 

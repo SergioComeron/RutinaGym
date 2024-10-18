@@ -30,7 +30,7 @@ struct EntrenamientoEnCursoView: View {
                     .font(.headline)
             }
         }
-        .navigationTitle("Entrenamiento en Curso")
+//        .navigationTitle("Entrenamiento en Curso")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button("Finalizar") {

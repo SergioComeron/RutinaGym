@@ -6,56 +6,68 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct DetalleEntrenamientoViewWatch: View {
     var entrenamiento: Entrenamiento
-    @State private var mostrandoEntrenamientoEnCurso = false
     @Environment(\.modelContext) private var modelContext
+
+    @State private var mostrarSeriesDetalladas = false
+    @State private var entrenamientoEnCurso: EntrenamientoRealizado?
+    @State private var mostrandoAlertaFinalizar = false
+
+    @Query(sort: \EntrenamientoRealizado.fechaInicio, order: .reverse)
+    var entrenamientosRealizados: [EntrenamientoRealizado]
+
+    private var entrenamientosRealizadosEntrenamiento: [EntrenamientoRealizado] {
+        entrenamientosRealizados.filter { $0.entrenamientoPlanificado == entrenamiento }
+    }
 
     var body: some View {
         VStack {
-            List {
-                Section(header: Text("Series")) {
-                    if let series = entrenamiento.series, !series.isEmpty {
-                        ForEach(series) { serie in
-                            VStack(alignment: .leading) {
-                                if let ejercicio = serie.ejercicios {
-                                    Text(ejercicio.nombre)
-                                        .font(.headline)
-                                } else {
-                                    Text("Ejercicio no disponible")
-                                        .font(.headline)
-                                        .foregroundColor(.red)
-                                }
-                                Text("Reps: \(serie.repeticiones ?? 0)")
-                                    .font(.caption)
-                                Text("Tipo: \(serie.tipoSerie.rawValue)")
-                                    .font(.caption2)
-                            }
-                        }
-                    } else {
-                        Text("No hay series para este entrenamiento")
-                            .foregroundColor(.gray)
+            if let entrenamientoEnCurso = entrenamientoEnCurso {
+                EntrenamientoEnCursoViewWatch(entrenamientoRealizado: Binding(get: { entrenamientoEnCurso }, set: { self.entrenamientoEnCurso = $0 }))
+            } else {
+                List {
+                    Section(header: Text("Detalles")) {
+                        Text("Nombre: \(entrenamiento.nombre)")
+                            .font(.headline)
                     }
+
                 }
-            }
-            .listStyle(CarouselListStyle())
-            .navigationTitle(entrenamiento.nombre)
-            
-            // Botón para Iniciar el Entrenamiento
-            Button(action: {
-                mostrandoEntrenamientoEnCurso = true
-            }) {
-                Text("Iniciar Entrenamiento")
-                    .frame(maxWidth: .infinity)
-            }
-            .buttonStyle(BorderedButtonStyle())
-            .padding()
-            .sheet(isPresented: $mostrandoEntrenamientoEnCurso) {
-                EntrenamientoEnCursoViewWatch(entrenamientoRealizado: .constant(EntrenamientoRealizado(entrenamientoPlanificado: entrenamiento)))
+                .navigationTitle("Entrenamiento")
+                .alert(isPresented: $mostrandoAlertaFinalizar) {
+                    Alert(
+                        title: Text("Finalizar Entrenamiento"),
+                        message: Text("¿Estás seguro de que deseas finalizar el entrenamiento?"),
+                        primaryButton: .destructive(Text("Finalizar")) {
+                            finalizarEntrenamiento()
+                        },
+                        secondaryButton: .cancel()
+                    )
+                }
+
+                Button(action: {
+                    iniciarEntrenamiento()
+                }) {
+                    Text("Iniciar Entrenamiento")
+                        .font(.headline)
+                        .padding()
+                }
+                .padding()
             }
         }
     }
+
+    private func iniciarEntrenamiento() {
+        let nuevoEntrenamientoRealizado = EntrenamientoRealizado(entrenamientoPlanificado: entrenamiento)
+        entrenamientoEnCurso = nuevoEntrenamientoRealizado
+        modelContext.insert(nuevoEntrenamientoRealizado)
+    }
+
+    private func finalizarEntrenamiento() {
+        entrenamientoEnCurso?.fechaFin = Date()
+        entrenamientoEnCurso = nil
+        // modelContext.saveOrRollback() // Guarda el contexto de datos
+    }
 }
-
-

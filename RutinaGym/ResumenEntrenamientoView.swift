@@ -6,9 +6,24 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ResumenEntrenamientoView: View {
     var entrenamientoRealizado: EntrenamientoRealizado
+    
+    @Query private var todasLasSeriesRealizadas: [SerieRealizada] // Utiliza Query para obtener las series
+
+    // Agrupamos las series realizadas por ejercicio y obtenemos los pesos usados
+    var seriesPorEjercicio: [String: [SerieRealizada]] {
+        Dictionary(grouping: entrenamientoRealizado.seriesRealizadas ?? [], by: { $0.seriePlanificada?.ejercicios?.nombre ?? "Desconocido" })
+    }
+    
+    // Función que calcula el peso máximo realizado a lo largo del tiempo para un ejercicio específico
+    func obtenerPesoMaximoGlobal(ejercicio: String) -> Double {
+        let seriesDeEjercicio = todasLasSeriesRealizadas.filter { $0.seriePlanificada?.ejercicios?.nombre == ejercicio }
+        let pesoMaximo = seriesDeEjercicio.compactMap { $0.pesoUtilizado }.max() ?? 0.0
+        return pesoMaximo
+    }
 
     var body: some View {
         VStack {
@@ -17,43 +32,54 @@ struct ResumenEntrenamientoView: View {
                     .font(.headline)
                     .padding(.bottom, 10)
             }
-            if let seriesRealizadas = entrenamientoRealizado.seriesRealizadas {
-                List {
-                    ForEach(seriesRealizadas.sorted(by: { $0.fecha < $1.fecha })) { serieRealizada in
-                        VStack(alignment: .leading) {
-                            if let ejercicio = serieRealizada.seriePlanificada?.ejercicios {
-                                Text(ejercicio.nombre)
-                                    .font(.headline)
-                            }
-                            Text("Fecha de la serie: \(serieRealizada.fecha, formatter: dateFormatter)")
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
-                            if let peso = serieRealizada.pesoUtilizado {
-                                Text("Peso: \(String(format: "%.2f", peso)) kg")
-                                    .font(.body)
-                            }
-                            if let repeticiones = serieRealizada.repeticionesRealizadas {
-                                Text("Repeticiones: \(repeticiones)")
-                                    .font(.body)
+            
+            List {
+                ForEach(seriesPorEjercicio.keys.sorted(), id: \.self) { ejercicio in
+                    VStack(alignment: .leading) {
+                        Text(ejercicio)
+                            .font(.headline)
+                        
+                        // Obtenemos el peso máximo a lo largo del tiempo para este ejercicio
+                        let pesoMaximoGlobal = obtenerPesoMaximoGlobal(ejercicio: ejercicio)
+                        
+                        // Obtenemos las series realizadas para este ejercicio
+                        if let series = seriesPorEjercicio[ejercicio] {
+                            ForEach(series) { serie in
+                                HStack {
+                                    if let peso = serie.pesoUtilizado {
+                                        // Si el peso de la serie es el máximo a lo largo del tiempo, agregamos el símbolo
+                                        Text("Peso: \(String(format: "%.2f", peso)) kg")
+                                            .font(.body)
+                                            .foregroundColor(peso == pesoMaximoGlobal ? .red : .primary)
+                                        
+                                        if peso == pesoMaximoGlobal {
+                                            Text("⭐️") // Símbolo para marcar la serie con el peso máximo global
+                                        }
+                                    }
+                                    
+                                    if let repeticiones = serie.repeticionesRealizadas {
+                                        Text("Repeticiones: \(repeticiones)")
+                                            .font(.body)
+                                            .padding(.leading, 10)
+                                    }
+                                }
+                                .padding(.vertical, 5)
                             }
                         }
-                        .padding(.vertical, 5)
                     }
+                    .padding(.vertical, 5)
                 }
-            } else {
-                Text("No se registraron series")
-                    .foregroundColor(.gray)
             }
         }
         .navigationTitle("Resumen de Entrenamiento")
         .padding()
     }
-}
 
-// Formato de fecha con hora
+    // Formato de fecha con hora
     private var dateTimeFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         formatter.timeStyle = .short
         return formatter
     }
+}

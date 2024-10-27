@@ -9,7 +9,7 @@ import SwiftData
 import Foundation
 
 @Model
-final class Entrenamiento: Identifiable {
+final class Entrenamiento: Identifiable, Codable {
     var nombre: String = ""
     var fecha: Date = Date()
 
@@ -18,13 +18,36 @@ final class Entrenamiento: Identifiable {
 
     @Relationship(deleteRule: .cascade, inverse: \EntrenamientoRealizado.entrenamientoPlanificado)
     var entrenamientosRealizados: [EntrenamientoRealizado]? = []
-    
+
     init(nombre: String, fecha: Date = Date(), series: [Serie] = []) {
         self.nombre = nombre
         self.fecha = fecha
         self.series = series
     }
+
+    enum CodingKeys: String, CodingKey {
+        case nombre
+        case fecha
+        // Excluimos 'series' y 'entrenamientosRealizados' si no conforman a Codable
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(nombre, forKey: .nombre)
+        try container.encode(fecha, forKey: .fecha)
+        // No codificamos 'series' ni 'entrenamientosRealizados' aquí
+    }
+
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        nombre = try container.decode(String.self, forKey: .nombre)
+        fecha = try container.decode(Date.self, forKey: .fecha)
+        // Inicializamos las propiedades no codificadas
+        series = []
+        entrenamientosRealizados = []
+    }
 }
+
 
 extension Entrenamiento {
     var seriesResumen: [String] {

@@ -11,6 +11,8 @@ import SwiftData
 struct DetalleEntrenamientoView: View {
     var entrenamiento: Entrenamiento
     @Environment(\.modelContext) private var modelContext
+    @AppStorage("liveactivity") var activityIdentifier: String = ""
+
 
     @State private var mostrarEditarEntrenamiento = false
     @State private var mostrarSeriesDetalladas = false
@@ -175,6 +177,15 @@ struct DetalleEntrenamientoView: View {
         let nuevoEntrenamientoRealizado = EntrenamientoRealizado(entrenamientoPlanificado: entrenamiento)
         entrenamientoEnCurso = nuevoEntrenamientoRealizado
         modelContext.insert(nuevoEntrenamientoRealizado)
+        
+        if let serie = entrenamiento.series?.first {
+            do {
+                activityIdentifier = try TrainingActivityUseCase.startActivity(serie: serie, entrenamiento: entrenamiento, pesoMaximo: 0)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+
     }
 
     private func eliminarEntrenamientos(at offsets: IndexSet) {

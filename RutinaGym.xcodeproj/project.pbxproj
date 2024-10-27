@@ -7,10 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B952FFA2CC2B23D00CA5697 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B952FF92CC2B23D00CA5697 /* WidgetKit.framework */; };
+		1B952FFC2CC2B23D00CA5697 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B952FFB2CC2B23D00CA5697 /* SwiftUI.framework */; };
+		1B95300D2CC2B23E00CA5697 /* RutinaGymLiveActivityExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1B952FF72CC2B23D00CA5697 /* RutinaGymLiveActivityExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1B9E4A6D2CB7E0C800E74FC5 /* RutinaGymWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 1B9E4A602CB7E0C600E74FC5 /* RutinaGymWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		1B95300B2CC2B23E00CA5697 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1B5AA0BD2CB6D0F5006837D7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1B952FF62CC2B23D00CA5697;
+			remoteInfo = RutinaGymLiveActivityExtension;
+		};
 		1B9E4A6B2CB7E0C800E74FC5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1B5AA0BD2CB6D0F5006837D7 /* Project object */;
@@ -21,6 +31,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		1B9530122CC2B23E00CA5697 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				1B95300D2CC2B23E00CA5697 /* RutinaGymLiveActivityExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1B9E4A712CB7E0C800E74FC5 /* Embed Watch Content */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -36,10 +57,32 @@
 
 /* Begin PBXFileReference section */
 		1B5AA0C52CB6D0F5006837D7 /* RutinaGym.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RutinaGym.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B952FF72CC2B23D00CA5697 /* RutinaGymLiveActivityExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RutinaGymLiveActivityExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B952FF92CC2B23D00CA5697 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		1B952FFB2CC2B23D00CA5697 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		1B9E4A602CB7E0C600E74FC5 /* RutinaGymWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RutinaGymWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		1B56A6212CCA961900661BE5 /* Exceptions for "RutinaGym" folder in "RutinaGymLiveActivityExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				LiveActivityAtributes.swift,
+				Model/Entrenamiento.swift,
+				Model/EntrenamientoRealizado.swift,
+				Model/Model.swift,
+				Model/Serie.swift,
+				Model/SerieRealizada.swift,
+			);
+			target = 1B952FF62CC2B23D00CA5697 /* RutinaGymLiveActivityExtension */;
+		};
+		1B9530112CC2B23E00CA5697 /* Exceptions for "RutinaGymLiveActivity" folder in "RutinaGymLiveActivityExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 1B952FF62CC2B23D00CA5697 /* RutinaGymLiveActivityExtension */;
+		};
 		1B9E4A7A2CB7E23300E74FC5 /* Exceptions for "RutinaGym" folder in "RutinaGymWatch Watch App" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -66,8 +109,17 @@
 			exceptions = (
 				1B9E4A822CB7E3AB00E74FC5 /* Exceptions for "RutinaGym" folder in "RutinaGym" target */,
 				1B9E4A7A2CB7E23300E74FC5 /* Exceptions for "RutinaGym" folder in "RutinaGymWatch Watch App" target */,
+				1B56A6212CCA961900661BE5 /* Exceptions for "RutinaGym" folder in "RutinaGymLiveActivityExtension" target */,
 			);
 			path = RutinaGym;
+			sourceTree = "<group>";
+		};
+		1B952FFD2CC2B23D00CA5697 /* RutinaGymLiveActivity */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				1B9530112CC2B23E00CA5697 /* Exceptions for "RutinaGymLiveActivity" folder in "RutinaGymLiveActivityExtension" target */,
+			);
+			path = RutinaGymLiveActivity;
 			sourceTree = "<group>";
 		};
 		1B9E4A612CB7E0C600E74FC5 /* RutinaGymWatch Watch App */ = {
@@ -82,6 +134,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B952FF42CC2B23D00CA5697 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B952FFC2CC2B23D00CA5697 /* SwiftUI.framework in Frameworks */,
+				1B952FFA2CC2B23D00CA5697 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,6 +161,8 @@
 			children = (
 				1B5AA0C72CB6D0F5006837D7 /* RutinaGym */,
 				1B9E4A612CB7E0C600E74FC5 /* RutinaGymWatch Watch App */,
+				1B952FFD2CC2B23D00CA5697 /* RutinaGymLiveActivity */,
+				1B952FF82CC2B23D00CA5697 /* Frameworks */,
 				1B5AA0C62CB6D0F5006837D7 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -109,8 +172,18 @@
 			children = (
 				1B5AA0C52CB6D0F5006837D7 /* RutinaGym.app */,
 				1B9E4A602CB7E0C600E74FC5 /* RutinaGymWatch Watch App.app */,
+				1B952FF72CC2B23D00CA5697 /* RutinaGymLiveActivityExtension.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		1B952FF82CC2B23D00CA5697 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1B952FF92CC2B23D00CA5697 /* WidgetKit.framework */,
+				1B952FFB2CC2B23D00CA5697 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -124,11 +197,13 @@
 				1B5AA0C22CB6D0F5006837D7 /* Frameworks */,
 				1B5AA0C32CB6D0F5006837D7 /* Resources */,
 				1B9E4A712CB7E0C800E74FC5 /* Embed Watch Content */,
+				1B9530122CC2B23E00CA5697 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				1B9E4A6C2CB7E0C800E74FC5 /* PBXTargetDependency */,
+				1B95300C2CC2B23E00CA5697 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				1B5AA0C72CB6D0F5006837D7 /* RutinaGym */,
@@ -139,6 +214,28 @@
 			productName = RutinaGym;
 			productReference = 1B5AA0C52CB6D0F5006837D7 /* RutinaGym.app */;
 			productType = "com.apple.product-type.application";
+		};
+		1B952FF62CC2B23D00CA5697 /* RutinaGymLiveActivityExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1B95300E2CC2B23E00CA5697 /* Build configuration list for PBXNativeTarget "RutinaGymLiveActivityExtension" */;
+			buildPhases = (
+				1B952FF32CC2B23D00CA5697 /* Sources */,
+				1B952FF42CC2B23D00CA5697 /* Frameworks */,
+				1B952FF52CC2B23D00CA5697 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				1B952FFD2CC2B23D00CA5697 /* RutinaGymLiveActivity */,
+			);
+			name = RutinaGymLiveActivityExtension;
+			packageProductDependencies = (
+			);
+			productName = RutinaGymLiveActivityExtension;
+			productReference = 1B952FF72CC2B23D00CA5697 /* RutinaGymLiveActivityExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 		1B9E4A5F2CB7E0C600E74FC5 /* RutinaGymWatch Watch App */ = {
 			isa = PBXNativeTarget;
@@ -175,6 +272,9 @@
 					1B5AA0C42CB6D0F5006837D7 = {
 						CreatedOnToolsVersion = 16.0;
 					};
+					1B952FF62CC2B23D00CA5697 = {
+						CreatedOnToolsVersion = 16.0;
+					};
 					1B9E4A5F2CB7E0C600E74FC5 = {
 						CreatedOnToolsVersion = 16.0;
 					};
@@ -196,12 +296,20 @@
 			targets = (
 				1B5AA0C42CB6D0F5006837D7 /* RutinaGym */,
 				1B9E4A5F2CB7E0C600E74FC5 /* RutinaGymWatch Watch App */,
+				1B952FF62CC2B23D00CA5697 /* RutinaGymLiveActivityExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		1B5AA0C32CB6D0F5006837D7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B952FF52CC2B23D00CA5697 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -225,6 +333,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1B952FF32CC2B23D00CA5697 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1B9E4A5C2CB7E0C600E74FC5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -235,6 +350,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		1B95300C2CC2B23E00CA5697 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1B952FF62CC2B23D00CA5697 /* RutinaGymLiveActivityExtension */;
+			targetProxy = 1B95300B2CC2B23E00CA5697 /* PBXContainerItemProxy */;
+		};
 		1B9E4A6C2CB7E0C800E74FC5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 1B9E4A5F2CB7E0C600E74FC5 /* RutinaGymWatch Watch App */;
@@ -377,6 +497,7 @@
 				INFOPLIST_FILE = RutinaGym/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -410,6 +531,7 @@
 				INFOPLIST_FILE = RutinaGym/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -422,6 +544,60 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sergiocomeron.RutinaGym;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		1B95300F2CC2B23E00CA5697 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6PUHQ5CYQS;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RutinaGymLiveActivity/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = RutinaGymLiveActivity;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sergiocomeron.RutinaGym.RutinaGymLiveActivity;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1B9530102CC2B23E00CA5697 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6PUHQ5CYQS;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RutinaGymLiveActivity/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = RutinaGymLiveActivity;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sergiocomeron.RutinaGym.RutinaGymLiveActivity;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -509,6 +685,15 @@
 			buildConfigurations = (
 				1B5AA0D42CB6D0F6006837D7 /* Debug */,
 				1B5AA0D52CB6D0F6006837D7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1B95300E2CC2B23E00CA5697 /* Build configuration list for PBXNativeTarget "RutinaGymLiveActivityExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1B95300F2CC2B23E00CA5697 /* Debug */,
+				1B9530102CC2B23E00CA5697 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

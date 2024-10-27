@@ -11,6 +11,7 @@ struct EntrenamientoEnCursoView: View {
     @Binding var entrenamientoRealizado: EntrenamientoRealizado?
     @Environment(\.modelContext) private var modelContext
     @State private var mostrandoAlertaFinalizar = false
+    @AppStorage("liveactivity") var activityIdentifier: String = ""
 
     var body: some View {
         VStack {
@@ -54,7 +55,14 @@ struct EntrenamientoEnCursoView: View {
         entrenamientoRealizado?.fechaFin = Date()
         // Guarda el contexto si es necesario
         // try? modelContext.save()
+        eliminarLiveActivity()
         entrenamientoRealizado = nil
+    }
+    
+    func eliminarLiveActivity() {
+        Task {
+            await TrainingActivityUseCase.endActivity(withActivityIdentifier: activityIdentifier)
+        }
     }
 }
 

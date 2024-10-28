@@ -50,43 +50,57 @@ final class Entrenamiento: Identifiable, Codable {
 
 
 extension Entrenamiento {
-    var seriesResumen: [String] {
+    var seriesResumen: [SeriesResumenItem] {
         guard let series = series else { return [] }
-        var resumenArray: [String] = []
+        var resumenArray: [SeriesResumenItem] = []
 
         // Ordenamos las series por fecha de creación
         let orderedSeries = series.sorted(by: { $0.fechaCreacion < $1.fechaCreacion })
 
-        // Agrupamos las series por nombre de ejercicio y tipo de serie
-        var resumenDict: [(nombreEjercicio: String, tipoSerie: TipoSerie, repeticionesArray: [Int?])] = []
-
+        // Mantenemos un array de resumenItems para preservar el orden
         for serie in orderedSeries {
             guard let ejercicio = serie.ejercicios else {
                 continue
             }
             let nombreEjercicio = ejercicio.nombre
-            let repeticiones = serie.repeticiones  // repeticiones ahora es Int?
             let tipoSerie = serie.tipoSerie
 
-            // Buscamos si ya existe una entrada para este ejercicio y tipo de serie
-            if let index = resumenDict.firstIndex(where: { $0.nombreEjercicio == nombreEjercicio && $0.tipoSerie == tipoSerie }) {
-                resumenDict[index].repeticionesArray.append(repeticiones)
+            // Buscamos si ya existe un resumenItem para este ejercicio y tipo de serie
+            if let index = resumenArray.firstIndex(where: { $0.nombreEjercicio == nombreEjercicio && $0.tipoSerie == tipoSerie }) {
+                // Si existe, añadimos la serie al resumenItem existente
+                var resumenItem = resumenArray[index]
+                resumenItem.repeticionesArray.append(serie.repeticiones)
+                resumenItem.series.append(serie)
+                resumenArray[index] = resumenItem
             } else {
-                resumenDict.append((nombreEjercicio: nombreEjercicio, tipoSerie: tipoSerie, repeticionesArray: [repeticiones]))
+                // Si no existe, creamos un nuevo resumenItem
+                let resumenItem = SeriesResumenItem(
+                    nombreEjercicio: nombreEjercicio,
+                    tipoSerie: tipoSerie,
+                    resumen: "", // Lo actualizaremos después
+                    repeticionesArray: [serie.repeticiones],
+                    series: [serie]
+                )
+                resumenArray.append(resumenItem)
             }
         }
 
-        // Generamos el resumen
-        for (nombreEjercicio, tipoSerie, repeticionesArray) in resumenDict {
+        // Ahora generamos el resumen para cada resumenItem
+        for index in 0..<resumenArray.count {
+            var resumenItem = resumenArray[index]
+            let nombreEjercicio = resumenItem.nombreEjercicio
+            let tipoSerie = resumenItem.tipoSerie
+            let repeticionesArray = resumenItem.repeticionesArray
+
+            var resumenText = ""
+
             if tipoSerie == .dropSet {
-                // Para dropset, mostramos "1 dropset nombre ejercicio"
-                let resumen = "1 dropset \(nombreEjercicio)"
-                resumenArray.append(resumen)
+                // Para dropset, mostramos "1x dropset nombre ejercicio"
+                resumenText = "1x dropset \(nombreEjercicio)"
             } else if tipoSerie == .alFallo {
                 // Para alFallo, mostramos "cantidad x al fallo ejercicio"
                 let cantidad = repeticionesArray.count
-                let resumen = "\(cantidad)x al fallo \(nombreEjercicio)"
-                resumenArray.append(resumen)
+                resumenText = "\(cantidad)x al fallo \(nombreEjercicio)"
             } else {
                 let cantidad = repeticionesArray.count
 
@@ -106,13 +120,17 @@ extension Entrenamiento {
                     }
                 }
 
-                let resumen = "\(cantidad)x\(repeticionesStr) \(nombreEjercicio)"
-                resumenArray.append(resumen)
+                resumenText = "\(cantidad)x\(repeticionesStr) \(nombreEjercicio)"
             }
+
+            resumenItem.resumen = resumenText
+            resumenArray[index] = resumenItem
         }
 
         return resumenArray
     }
 }
+
+
 
 

@@ -65,61 +65,11 @@ struct DetalleEntrenamientoView: View {
                             Text("No hay series para este entrenamiento")
                                 .foregroundColor(.gray)
                         } else {
-                            ForEach(entrenamiento.seriesResumen, id: \.self) { resumen in
-                                Text(resumen)
+                            ForEach(entrenamiento.seriesResumen) { resumenItem in
+                                Text(resumenItem.resumen)
                             }
                         }
                     }
-
-//                    Button(action: {
-//                        withAnimation {
-//                            mostrarSeriesDetalladas.toggle()
-//                        }
-//                    }) {
-//                        HStack {
-//                            Text(mostrarSeriesDetalladas ? "Ocultar Series Detalladas" : "Mostrar Series Detalladas")
-//                            Spacer()
-//                            Image(systemName: mostrarSeriesDetalladas ? "chevron.up" : "chevron.down")
-//                                .foregroundColor(.blue)
-//                        }
-//                    }
-//                    .buttonStyle(PlainButtonStyle())
-//
-//                    if mostrarSeriesDetalladas {
-//                        Section(header: Text("Series Detalladas")) {
-//                            if let series = entrenamiento.series, !series.isEmpty {
-//                                ForEach(series) { serie in
-//                                    VStack(alignment: .leading) {
-//                                        if let ejercicio = serie.ejercicios {
-//                                            Text(ejercicio.nombre)
-//                                                .font(.headline)
-//                                        } else {
-//                                            Text("Ejercicio no disponible")
-//                                                .font(.headline)
-//                                                .foregroundColor(.red)
-//                                        }
-//                                        if let repeticiones = serie.repeticiones {
-//                                            Text("Repeticiones: \(repeticiones)")
-//                                        } else {
-//                                            Text("Repeticiones: No establecidas")
-//                                        }
-//                                        Text("Tipo de Serie: \(serie.tipoSerie.rawValue.capitalized)")
-//                                        if let descripcion = serie.descripcion {
-//                                            Text("Descripción: \(descripcion)")
-//                                        }
-//                                        if let observaciones = serie.observaciones {
-//                                            Text("Observaciones: \(observaciones)")
-//                                        }
-//                                    }
-//                                    .padding(.vertical, 5)
-//                                }
-//                            } else {
-//                                Text("No hay series para este entrenamiento")
-//                                    .foregroundColor(.gray)
-//                            }
-//                        }
-//                    }
-
                     Section(header: Text("Entrenamientos Realizados")) {
                         if entrenamientosRealizadosEntrenamiento.isEmpty {
                             Text("No se han realizado entrenamientos aún")

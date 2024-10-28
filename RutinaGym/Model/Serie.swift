@@ -71,3 +71,17 @@ final class Serie: Identifiable, Codable {
             seriesRealizadas = []
         }
 }
+struct SeriesResumenItem: Identifiable {
+    let id = UUID()
+    let nombreEjercicio: String
+    let tipoSerie: TipoSerie
+    var resumen: String
+    var repeticionesArray: [Int?]
+    var series: [Serie]
+}
+
+extension Serie: Equatable {
+    static func == (lhs: Serie, rhs: Serie) -> Bool {
+        return lhs.id == rhs.id
+    }
+}

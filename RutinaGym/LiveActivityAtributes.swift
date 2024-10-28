@@ -13,5 +13,7 @@ struct LiveActivityAtributes: ActivityAttributes {
         var serie: Serie
         var entrenamiento: Entrenamiento
         var pesoMaximo : Double
+        var resumenText: String // Nueva propiedad para el resumen
+
     }
 }

@@ -14,7 +14,13 @@ struct RutinaGymLiveActivityLiveActivity: Widget {
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: LiveActivityAtributes.self) { context in
             VStack(alignment: .leading, spacing: 12) {
-                // Nombre del ejercicio en un estilo destacado, ocupando todo el ancho
+                // Mostrar el resumen correspondiente en la parte superior
+                Text(context.state.resumenText)
+                    .font(.headline)
+                    .foregroundColor(.blue)
+                    .padding(.bottom, 4)
+                
+                // Nombre del ejercicio en un estilo destacado
                 if let ejercicio = context.state.serie.ejercicios {
                     Text(ejercicio.nombre)
                         .font(.title2)
@@ -23,7 +29,7 @@ struct RutinaGymLiveActivityLiveActivity: Widget {
                         .padding(.bottom, 4)
                 }
                 
-                // Sección de detalles en un HStack para distribuir contenido de borde a borde
+                // Sección de detalles en un HStack
                 HStack {
                     VStack(alignment: .leading, spacing: 4) {
                         Text("Repeticiones")
@@ -35,7 +41,7 @@ struct RutinaGymLiveActivityLiveActivity: Widget {
                             .foregroundColor(.primary)
                     }
                     
-                    Spacer() // Espaciador para distribuir el contenido
+                    Spacer()
                     
                     VStack(alignment: .center, spacing: 4) {
                         Text("Tipo de Serie")
@@ -47,7 +53,7 @@ struct RutinaGymLiveActivityLiveActivity: Widget {
                             .foregroundColor(.primary)
                     }
                     
-                    Spacer() // Otro espaciador
+                    Spacer()
                     
                     VStack(alignment: .trailing, spacing: 4) {
                         Text("Peso Máximo")
@@ -60,10 +66,8 @@ struct RutinaGymLiveActivityLiveActivity: Widget {
                     }
                 }
             }
-            .padding(.horizontal, 16) // Añade un poco de espacio lateral
-            .padding(.vertical, 12)   // Añade espacio vertical para separar del borde superior e inferior
-            
-            
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
         } dynamicIsland: { context in
             DynamicIsland {
                 // Región principal izquierda: repeticiones y series
@@ -153,13 +157,13 @@ extension LiveActivityAtributes {
         serie: Serie(repeticiones: 12,
                      descripcion: "",
                      ejercicios: Ejercicio(id: 999,
-                                           nombre: "Nombre ejercicio",
+                                           nombre: "Press Plano máquina",
                                            variable: "",
                                            descripcion: "descripción",
                                            grupoMuscular: .abdomen),
                      tipoSerie: .normal,
                      observaciones: ""),
-        entrenamiento: Entrenamiento(nombre: "nombre entrenamiento"), pesoMaximo: 15.0)
+        entrenamiento: Entrenamiento(nombre: "nombre entrenamiento"), pesoMaximo: 15.0, resumenText: "3 x 15 Press plano máquina")
 }
 
 

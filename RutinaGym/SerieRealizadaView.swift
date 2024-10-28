@@ -29,13 +29,14 @@ struct SerieRealizadaView: View {
     var body: some View {
         VStack {
             // Mostrar el resumen del entrenamiento
-            if let resumen = entrenamientoRealizado.entrenamientoPlanificado?.seriesResumen {
+            if let resumenItems = entrenamientoRealizado.entrenamientoPlanificado?.seriesResumen {
                 VStack(alignment: .leading, spacing: 5) {
                     Text("Resumen del Entrenamiento")
                         .font(.headline)
-                    ForEach(resumen, id: \.self) { item in
-                        Text(item)
+                    ForEach(resumenItems) { item in
+                        Text(item.resumen)
                             .font(.subheadline)
+                            .foregroundColor(isCurrentSeriesInResumenItem(item) ? .blue : .primary)
                     }
                 }
                 .padding()
@@ -169,6 +170,12 @@ struct SerieRealizadaView: View {
         .onChange(of: todasLasSeriesRealizadas) {
             viewModel.todasLasSeriesRealizadas = todasLasSeriesRealizadas
         }
+    }
+    // Función para verificar si la serie actual está en el resumen
+    func isCurrentSeriesInResumenItem(_ item: SeriesResumenItem) -> Bool {
+        let seriesOrdenadas = viewModel.seriesPlanificadas.sorted(by: { $0.fechaCreacion < $1.fechaCreacion })
+        let currentSerie = seriesOrdenadas[viewModel.currentIndex]
+        return item.series.contains { $0 == currentSerie }
     }
 }
 

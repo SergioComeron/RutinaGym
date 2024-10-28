@@ -13,49 +13,122 @@ import SwiftUI
 struct RutinaGymLiveActivityLiveActivity: Widget {
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: LiveActivityAtributes.self) { context in
-            VStack {
-//                Text("\(context.state.entrenamiento.nombre)")
+            VStack(alignment: .leading, spacing: 12) {
+                // Nombre del ejercicio en un estilo destacado, ocupando todo el ancho
                 if let ejercicio = context.state.serie.ejercicios {
-                    Text("\(ejercicio.nombre)")
+                    Text(ejercicio.nombre)
+                        .font(.title2)
+                        .bold()
+                        .foregroundColor(.primary)
+                        .padding(.bottom, 4)
                 }
                 
+                // Sección de detalles en un HStack para distribuir contenido de borde a borde
                 HStack {
-                    Text("Rep: \(context.state.serie.repeticiones ?? 0)")
-                    Text("x \(context.state.serie.tipoSerie.rawValue.capitalized)")
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Repeticiones")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                        Text("\(context.state.serie.repeticiones ?? 0)")
+                            .font(.title3)
+                            .bold()
+                            .foregroundColor(.primary)
+                    }
+                    
+                    Spacer() // Espaciador para distribuir el contenido
+                    
+                    VStack(alignment: .center, spacing: 4) {
+                        Text("Tipo de Serie")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                        Text(context.state.serie.tipoSerie.rawValue.capitalized)
+                            .font(.title3)
+                            .bold()
+                            .foregroundColor(.primary)
+                    }
+                    
+                    Spacer() // Otro espaciador
+                    
+                    VStack(alignment: .trailing, spacing: 4) {
+                        Text("Peso Máximo")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                        Text("\(context.state.pesoMaximo, specifier: "%.2f") kg")
+                            .font(.title3)
+                            .bold()
+                            .foregroundColor(.blue)
+                    }
                 }
-                Text("Peso \(context.state.pesoMaximo, specifier: "%.2f")")
             }
-            .padding()
-
+            .padding(.horizontal, 16) // Añade un poco de espacio lateral
+            .padding(.vertical, 12)   // Añade espacio vertical para separar del borde superior e inferior
+            
+            
         } dynamicIsland: { context in
             DynamicIsland {
+                // Región principal izquierda: repeticiones y series
                 DynamicIslandExpandedRegion(.leading) {
-                    VStack{
-                        Text("3x15")
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Repeticiones")
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                        Text("\(context.state.serie.repeticiones ?? 0)")
+                            .font(.headline)
+                            .bold()
+                            .foregroundColor(.primary)
                     }
-                    .padding(.leading)
+                    .padding(.leading, 8)
                 }
+                
+                // Región principal derecha: tipo de serie
                 DynamicIslandExpandedRegion(.trailing) {
-                    VStack{
-                        Text("DropSet")
+                    VStack(alignment: .trailing, spacing: 4) {
+                        Text("Tipo de Serie")
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                        Text("\(context.state.serie.tipoSerie.rawValue.capitalized)")
+                            .font(.headline)
+                            .bold()
+                            .foregroundColor(.primary)
                     }
-                    .padding(.trailing)
+                    .padding(.trailing, 8)
                 }
+
+                // Región inferior: información del entrenamiento y seriesResumen
                 DynamicIslandExpandedRegion(.bottom) {
-                    Text("\(context.state.entrenamiento.nombre)")
-                    if context.state.entrenamiento.seriesResumen.isEmpty {
-                        Text("No hay series para este entrenamiento")
-                            .foregroundColor(.gray)
-                    } else {
-                        ForEach(context.state.entrenamiento.seriesResumen, id: \.self) { resumen in
-                            Text(resumen)
+                    VStack(alignment: .center, spacing: 6) {
+                        // Nombre del entrenamiento
+                        Text(context.state.entrenamiento.nombre)
+                            .font(.headline)
+                            .bold()
+                            .foregroundColor(.primary)
+                        
+                        if let ejercicio = context.state.serie.ejercicios {
+                            Text(ejercicio.nombre)
+                                .font(.title2)
+                                .bold()
+                                .foregroundColor(.primary)
+                                .padding(.bottom, 4)
                         }
                     }
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 8)
                 }
             } compactLeading: {
-                Text("Press pecho banco plano")
+                if let ejercicio = context.state.serie.ejercicios {
+                    Text(ejercicio.nombre)
+                        .font(.caption)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                        .foregroundColor(.primary)
+                }
             } compactTrailing: {
-
+                Text("\(context.state.serie.repeticiones ?? 0)")
+                    .font(.caption)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+                    .foregroundColor(.primary)
+                
             } minimal: {
                 Image(systemName: "figure.strengthtraining.traditional")
                     .foregroundStyle(.green)

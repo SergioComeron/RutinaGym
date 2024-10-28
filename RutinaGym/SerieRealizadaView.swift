@@ -28,7 +28,24 @@ struct SerieRealizadaView: View {
     
     var body: some View {
         VStack {
-            
+            // Mostrar el resumen del entrenamiento
+            if let resumen = entrenamientoRealizado.entrenamientoPlanificado?.seriesResumen {
+                VStack(alignment: .leading, spacing: 5) {
+                    Text("Resumen del Entrenamiento")
+                        .font(.headline)
+                    ForEach(resumen, id: \.self) { item in
+                        Text(item)
+                            .font(.subheadline)
+                    }
+                }
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 15)
+                        .fill(colorScheme == .dark ? Color.black : Color.white)
+                        .shadow(color: .gray.opacity(0.4), radius: 5, x: 0, y: 2)
+                )
+                .padding(.horizontal)
+            }
             if viewModel.entrenamientoCompletado {
                 Text("¡Entrenamiento completado!")
                     .font(.largeTitle)
@@ -144,10 +161,6 @@ struct SerieRealizadaView: View {
                     .foregroundColor(.gray)
                     .font(.largeTitle) // Texto más grande para los mensajes de aviso
             }
-            ProgressView(value: Double(viewModel.currentIndex + 1), total: Double(viewModel.seriesPlanificadas.count))
-                .scaleEffect(1.5) // Aumentar tamaño del ProgressView
-                .padding(.vertical, 20)
-            
         }
         .padding()
         .onAppear {

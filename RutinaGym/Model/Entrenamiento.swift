@@ -116,9 +116,3 @@ extension Entrenamiento {
 }
 
 
-
-
-
-
-
-

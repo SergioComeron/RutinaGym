@@ -14,7 +14,15 @@ final class TrainingActivityUseCase {
         print("Iniciando live activity desde dentro funcion")
         guard ActivityAuthorizationInfo().areActivitiesEnabled else { return "" }
 
-        let initialState = LiveActivityAtributes.ContentState(serie: serie, entrenamiento: entrenamiento, pesoMaximo: pesoMaximo, resumenText: "")
+        // Obtener el resumen que corresponde a la serie actual
+        let resumenText = entrenamiento.seriesResumen.first(where: { $0.series.contains(where: { $0 == serie }) })?.resumen ?? ""
+
+        let initialState = LiveActivityAtributes.ContentState(
+            serie: serie,
+            entrenamiento: entrenamiento,
+            pesoMaximo: pesoMaximo,
+            resumenText: resumenText
+        )
         
         let futureDate: Date = .now + 3600
 
@@ -31,6 +39,7 @@ final class TrainingActivityUseCase {
             throw error
         }
     }
+
     
     static func updateActivity(activityIdentifier: String, serie: Serie, pesoMaximo: Double) async {
         if let entrenamiento = serie.entrenamiento {

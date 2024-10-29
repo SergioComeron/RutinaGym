@@ -128,14 +128,14 @@ struct DetalleEntrenamientoView: View {
         entrenamientoEnCurso = nuevoEntrenamientoRealizado
         modelContext.insert(nuevoEntrenamientoRealizado)
         
-        if let serie = entrenamiento.series?.first {
+        // Ordena las series por `fechaCreacion` y selecciona la primera
+        if let serie = entrenamiento.series?.sorted(by: { $0.fechaCreacion < $1.fechaCreacion }).first {
             do {
                 activityIdentifier = try TrainingActivityUseCase.startActivity(serie: serie, entrenamiento: entrenamiento, pesoMaximo: 0)
             } catch {
                 print(error.localizedDescription)
             }
         }
-
     }
 
     private func eliminarEntrenamientos(at offsets: IndexSet) {

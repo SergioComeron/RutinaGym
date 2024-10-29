@@ -126,7 +126,6 @@ struct SerieRealizadaView: View {
                                 }
                                 
                                 Button("Guardar Serie") {
-                                    let seriePlanificada = seriesOrdenadas[viewModel.currentIndex]
                                     viewModel.guardarSerie(seriePlanificada: seriePlanificada, index: viewModel.currentIndex, modelContext: modelContext)
                                 }
                                 .disabled(viewModel.seriesGuardadas[viewModel.currentIndex] == true)
@@ -140,23 +139,23 @@ struct SerieRealizadaView: View {
                                     .shadow(color: .gray.opacity(0.4), radius: 5, x: 0, y: 2)
                             )
                             .padding(.horizontal)
-                            .onAppear {
-                                Task {
-                                    let pesoMaximo = viewModel.pesoMaximoParaEjercicio(seriePlanificada.ejercicios?.nombre)
-                                    if let pesoMaximo = pesoMaximo {
-                                        await TrainingActivityUseCase.updateActivity(activityIdentifier: activityIdentifier, serie: seriePlanificada, pesoMaximo: pesoMaximo)
-                                    }
-                                }
-                            }
                         }
                         .padding()
                         .tag(index)
                         .transition(.slide)
                     }
                 }
+                .onChange(of: viewModel.currentIndex) {
+                    Task {
+                        let seriePlanificada = seriesOrdenadas[viewModel.currentIndex]
+                        let pesoMaximo = viewModel.pesoMaximoParaEjercicio(seriePlanificada.ejercicios?.nombre) ?? 0
+                        await TrainingActivityUseCase.updateActivity(activityIdentifier: activityIdentifier, serie: seriePlanificada, pesoMaximo: pesoMaximo)
+                    }
+                }
                 .tabViewStyle(.page(indexDisplayMode: .always)) // Los puntos de la paginación abajo
                 .frame(height: 600) // Incrementar el tamaño de la vista
                 .animation(.easeInOut, value: viewModel.currentIndex)
+
             } else {
                 Text("No hay más series planificadas")
                     .foregroundColor(.gray)

@@ -14,8 +14,10 @@ struct SerieRealizadaView: View {
     @Environment(\.colorScheme) var colorScheme
     @Query private var todasLasSeriesRealizadas: [SerieRealizada]
     @AppStorage("liveactivity") var activityIdentifier: String = ""
+    
     var seriesPlanificadas: [Serie]
-        var entrenamientoRealizado: EntrenamientoRealizado
+    var entrenamientoRealizado: EntrenamientoRealizado
+    
     init(seriesPlanificadas: [Serie], entrenamientoRealizado: EntrenamientoRealizado) {
         self.seriesPlanificadas = seriesPlanificadas
         self.entrenamientoRealizado = entrenamientoRealizado
@@ -155,6 +157,13 @@ struct SerieRealizadaView: View {
                 .tabViewStyle(.page(indexDisplayMode: .always)) // Los puntos de la paginación abajo
                 .frame(height: 600) // Incrementar el tamaño de la vista
                 .animation(.easeInOut, value: viewModel.currentIndex)
+                .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        withAnimation {
+                            viewModel.currentIndex = viewModel.currentIndex // Fuerza la posición centrada en el índice actual
+                        }
+                    }
+                }
 
             } else {
                 Text("No hay más series planificadas")
@@ -169,7 +178,15 @@ struct SerieRealizadaView: View {
         .onChange(of: todasLasSeriesRealizadas) {
             viewModel.todasLasSeriesRealizadas = todasLasSeriesRealizadas
         }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                withAnimation {
+                    viewModel.currentIndex = viewModel.currentIndex // Reajustar la posición de la ficha actual
+                }
+            }
+        }
     }
+    
     // Función para verificar si la serie actual está en el resumen
     func isCurrentSeriesInResumenItem(_ item: SeriesResumenItem) -> Bool {
         let seriesOrdenadas = viewModel.seriesPlanificadas.sorted(by: { $0.fechaCreacion < $1.fechaCreacion })
@@ -177,6 +194,3 @@ struct SerieRealizadaView: View {
         return item.series.contains { $0 == currentSerie }
     }
 }
-
-
-

@@ -20,11 +20,32 @@ struct EntrenamientoEnCursoView: View {
                let seriesPlanificadas = entrenamientoPlanificado.series,
                !seriesPlanificadas.isEmpty {
 
-                // Mostrar el carrusel de series planificadas usando SerieRealizadaView
-                SerieRealizadaView(
-                    seriesPlanificadas: seriesPlanificadas,
-                    entrenamientoRealizado: entrenamientoRealizado
-                )
+                // Filtrar series planificadas para mostrar solo las no realizadas
+                let seriesPendientes = seriesPlanificadas.filter { seriePlanificada in
+                    !(entrenamientoRealizado.seriesRealizadas?.contains { $0.seriePlanificada == seriePlanificada } ?? false)
+                }
+
+                // Mostrar las series ya realizadas, si existen
+                if let seriesRealizadas = entrenamientoRealizado.seriesRealizadas, !seriesRealizadas.isEmpty {
+                    Section(header: Text("Series Realizadas")) {
+                        ForEach(seriesRealizadas) { serieRealizada in
+                            Text("Ejercicio: \(serieRealizada.seriePlanificada?.ejercicios?.nombre ?? "N/A") - Peso: \(serieRealizada.pesoUtilizado ?? 0) kg")
+                                .font(.subheadline)
+                        }
+                    }
+                }
+
+                // Mostrar solo las series pendientes en el carrusel
+                if !seriesPendientes.isEmpty {
+                    SerieRealizadaView(
+                        seriesPlanificadas: seriesPendientes,
+                        entrenamientoRealizado: entrenamientoRealizado
+                    )
+                } else {
+                    Text("Todas las series de este entrenamiento han sido completadas.")
+                        .foregroundColor(.gray)
+                        .font(.headline)
+                }
             } else {
                 Text("No hay series planificadas para este entrenamiento")
                     .foregroundColor(.gray)
@@ -52,16 +73,14 @@ struct EntrenamientoEnCursoView: View {
 
     private func finalizarEntrenamiento() {
         entrenamientoRealizado?.fechaFin = Date()
-        // Guarda el contexto si es necesario
-        // try? modelContext.save()
+        entrenamientoRealizado?.finalizado = true
         eliminarLiveActivity()
         entrenamientoRealizado = nil
     }
-    
-    func eliminarLiveActivity() {
+
+    private func eliminarLiveActivity() {
         Task {
             await TrainingActivityUseCase.endActivity(withActivityIdentifier: activityIdentifier)
         }
     }
 }
-

@@ -13,7 +13,6 @@ struct DetalleEntrenamientoView: View {
     @Environment(\.modelContext) private var modelContext
     @AppStorage("liveactivity") var activityIdentifier: String = ""
 
-
     @State private var mostrarEditarEntrenamiento = false
     @State private var mostrarSeriesDetalladas = false
     @State private var entrenamientoEnCurso: EntrenamientoRealizado?
@@ -23,26 +22,28 @@ struct DetalleEntrenamientoView: View {
     @Query(sort: \EntrenamientoRealizado.fechaInicio, order: .reverse)
     var entrenamientosRealizados: [EntrenamientoRealizado]
     
-    @Query private var todasLasSeriesRealizadas: [SerieRealizada] // Consulta todas las series realizadas
+    @Query private var todasLasSeriesRealizadas: [SerieRealizada]
 
     private var entrenamientosRealizadosEntrenamiento: [EntrenamientoRealizado] {
         entrenamientosRealizados.filter { $0.entrenamientoPlanificado == entrenamiento }
     }
 
-    // Función que calcula el peso máximo global para un ejercicio específico
+    private var entrenamientosNoFinalizados: [EntrenamientoRealizado] {
+        entrenamientosRealizadosEntrenamiento.filter { !$0.finalizado }
+    }
+
     private func obtenerPesoMaximoGlobal(ejercicio: String) -> Double {
         let seriesDeEjercicio = todasLasSeriesRealizadas.filter { $0.seriePlanificada?.ejercicios?.nombre == ejercicio }
         return seriesDeEjercicio.compactMap { $0.pesoUtilizado }.max() ?? 0.0
     }
 
-    // Función que determina si algún ejercicio de las series de un entrenamiento alcanzó el peso máximo
     private func tienePesoMaximo(entrenamientoRealizado: EntrenamientoRealizado) -> Bool {
         for serieRealizada in entrenamientoRealizado.seriesRealizadas ?? [] {
             if let ejercicio = serieRealizada.seriePlanificada?.ejercicios?.nombre,
                let peso = serieRealizada.pesoUtilizado {
                 let pesoMaximo = obtenerPesoMaximoGlobal(ejercicio: ejercicio)
                 if peso == pesoMaximo {
-                    return true // Si alguna serie tiene el peso máximo, devuelve verdadero
+                    return true
                 }
             }
         }
@@ -55,6 +56,25 @@ struct DetalleEntrenamientoView: View {
                 EntrenamientoEnCursoView(entrenamientoRealizado: Binding(get: { entrenamientoEnCurso }, set: { self.entrenamientoEnCurso = $0 }))
             } else {
                 List {
+                    Section(header: Text("Entrenamientos No Finalizados")) {
+                        if entrenamientosNoFinalizados.isEmpty {
+                            Text("No hay entrenamientos en curso")
+                                .foregroundColor(.gray)
+                        } else {
+                            ForEach(entrenamientosNoFinalizados) { entrenamientoRealizado in
+                                Button(action: {
+                                    entrenamientoEnCurso = entrenamientoRealizado
+                                }) {
+                                    if let fechaInicio = entrenamientoRealizado.fechaInicio {
+                                        Text("Fecha: \(fechaInicio, formatter: dateFormatter)")
+                                            .font(.headline)
+                                    }
+                                }
+                                .padding(.vertical, 5)
+                            }
+                        }
+                    }
+
                     Section(header: Text("Detalles")) {
                         Text("Nombre: \(entrenamiento.nombre)")
                         Text("Fecha: \(entrenamiento.fecha, formatter: dateFormatter)")
@@ -70,6 +90,7 @@ struct DetalleEntrenamientoView: View {
                             }
                         }
                     }
+
                     Section(header: Text("Entrenamientos Realizados")) {
                         if entrenamientosRealizadosEntrenamiento.isEmpty {
                             Text("No se han realizado entrenamientos aún")
@@ -83,7 +104,6 @@ struct DetalleEntrenamientoView: View {
                                                 Text("Fecha: \(fechaInicio, formatter: dateFormatter)")
                                                     .font(.headline)
                                             }
-                                            // Si algún ejercicio alcanzó el peso máximo, mostrar la estrella
                                             if tienePesoMaximo(entrenamientoRealizado: entrenamientoRealizado) {
                                                 Image(systemName: "star.fill")
                                                     .foregroundColor(.yellow)
@@ -128,7 +148,6 @@ struct DetalleEntrenamientoView: View {
         entrenamientoEnCurso = nuevoEntrenamientoRealizado
         modelContext.insert(nuevoEntrenamientoRealizado)
         
-        // Ordena las series por `fechaCreacion` y selecciona la primera
         if let serie = entrenamiento.series?.sorted(by: { $0.fechaCreacion < $1.fechaCreacion }).first {
             do {
                 activityIdentifier = try TrainingActivityUseCase.startActivity(serie: serie, entrenamiento: entrenamiento, pesoMaximo: 0)
@@ -145,16 +164,3 @@ struct DetalleEntrenamientoView: View {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

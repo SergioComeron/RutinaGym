@@ -25,15 +25,6 @@ struct EntrenamientoEnCursoView: View {
                     !(entrenamientoRealizado.seriesRealizadas?.contains { $0.seriePlanificada == seriePlanificada } ?? false)
                 }
 
-                // Mostrar las series ya realizadas, si existen
-                if let seriesRealizadas = entrenamientoRealizado.seriesRealizadas, !seriesRealizadas.isEmpty {
-                    Section(header: Text("Series Realizadas")) {
-                        ForEach(seriesRealizadas) { serieRealizada in
-                            Text("Ejercicio: \(serieRealizada.seriePlanificada?.ejercicios?.nombre ?? "N/A") - Peso: \(serieRealizada.pesoUtilizado ?? 0) kg")
-                                .font(.subheadline)
-                        }
-                    }
-                }
 
                 // Mostrar solo las series pendientes en el carrusel
                 if !seriesPendientes.isEmpty {

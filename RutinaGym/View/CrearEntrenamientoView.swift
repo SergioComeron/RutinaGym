@@ -64,16 +64,20 @@ struct CrearEntrenamientoView: View {
                         }
                     }
                 }
+                Button("Guardar") {
+                    guardarEntrenamiento()
+                }
+                .disabled(nombre.isEmpty || series.isEmpty)
             }
             .navigationTitle("Crear Entrenamiento")
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Guardar") {
-                        guardarEntrenamiento()
-                    }
-                    .disabled(nombre.isEmpty || series.isEmpty)
-                }
-            }
+//            .toolbar {
+//                ToolbarItem(placement: .confirmationAction) {
+//                    Button("Guardar") {
+//                        guardarEntrenamiento()
+//                    }
+//                    .disabled(nombre.isEmpty || series.isEmpty)
+//                }
+//            }
         }
     }
     
